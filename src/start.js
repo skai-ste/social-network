@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Welcome from "./welcome.js";
+import Welcome from "./welcome";
+// import axios from "./axios";
 //go find Welcome that is in the same directory as start.js
 
 let elem;

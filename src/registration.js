@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
+import axios from "./axios";
 
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = { error: false };
         this.handleChange = this.handleChange.bind(this);
+        this.register = this.register.bind(this);
     }
     handleChange(e) {
         // console.log('handleChange running!');
@@ -20,13 +21,14 @@ export default class Registration extends React.Component {
             () => console.log("this.state: ", this.state)
         );
     } //this function will work for as much input fields as we want
-    register() {
+    register(event) {
+        event.preventDefault();
         axios
             .post("/register", this.state)
             .then(res => {
                 console.log("RESSSSS: ", res);
                 //res.data.succes :true
-                if (res.data.succes) {
+                if (res.data.success) {
                     location.replace("/");
                 } else {
                     this.setState({ error: true });
@@ -70,7 +72,7 @@ export default class Registration extends React.Component {
                     />
                     <input
                         type="password"
-                        name="pasword"
+                        name="password"
                         placeholder="password"
                         autoComplete="off"
                         required

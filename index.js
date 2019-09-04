@@ -8,7 +8,7 @@ const { hash } = require("./utils/bc");
 const { addUserData } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
-const { hasUserId, hasNoUserId } = require("./middleware");
+// const { hasUserId, hasNoUserId } = require("./middleware");
 
 app.use(compression());
 
@@ -31,9 +31,7 @@ app.use(
 app.use(csurf());
 
 app.use(function(req, res, next) {
-    res.setHeader("X-Frame-Options", "DENY");
-    res.locals.csrfToken = req.csrfToken();
-    // console.log("Setting csrf to ", req.csrfToken());
+    res.cookie("mytoken", req.csrfToken());
     next();
 });
 
@@ -52,14 +50,15 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 ///////////////////////////////////////////////////////////////
-app.post("/register", hasNoUserId, (req, res) => {
+app.post("/register", (req, res) => {
+    console.log("req.body", req.body); //make sure properties are called first name last name
+    console.log("req.body.password", req.body.password);
     hash(req.body.password)
         .then(hashedPsw => {
-            console.log("req.body", req.body); //make sure properties are called first name last name
             console.log("hashedPsw: ", hashedPsw);
             return addUserData(
-                req.body.firstname,
-                req.body.lastname,
+                req.body.first,
+                req.body.last,
                 req.body.email,
                 hashedPsw
             );
