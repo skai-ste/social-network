@@ -1,14 +1,11 @@
 const express = require("express");
 const app = express();
 const compression = require("compression");
-const { hash } = require("./utils/bc");
+const { hash, compare } = require("./utils/bc");
 // const { hasUserId, hasNoUserId } = require("./middleware");
-// const db = require("./utils/db");
-// const { hash, compare } = require("./utils/bc");
-const { addUserData } = require("./utils/db");
+const { addUserData, getPassword } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
-// const { hasUserId, hasNoUserId } = require("./middleware");
 
 app.use(compression());
 
@@ -76,7 +73,27 @@ app.post("/register", (req, res) => {
         });
 });
 
-/// in this file it will just 2 routes ///
+app.post("/login", (req, res) => {
+    getPassword(req.body.email)
+        .then(hashedPsw => {
+            console.log("hashedPsw :", hashedPsw);
+            compare(req.body.password, hashedPsw.password).then(match => {
+                console.log("did my pasword match?");
+                console.log(match);
+                if (match) {
+                    res.json({ success: true });
+                } else {
+                    res.json({ success: false });
+                }
+            });
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.render("login", {
+                error: true
+            });
+        });
+});
 
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/index.html");

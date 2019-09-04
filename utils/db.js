@@ -14,3 +14,12 @@ exports.addUserData = function(firstname, lastname, email, password) {
         [firstname, lastname, email, password]
     );
 };
+
+exports.getPassword = function(email) {
+    return db
+        .query(`SELECT password, id FROM users WHERE email = $1`, [email])
+        .then(({ rows }) => {
+            return rows[0];
+            // return rows[0].password;
+        });
+};
