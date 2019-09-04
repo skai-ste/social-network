@@ -8,17 +8,18 @@ export default function Welcome() {
         <HashRouter>
             <div>
                 <p>This is welcome template</p>
-                <img src="/welcome.jpg" alt="Welcome" />
+                <img src="/circle.gif" alt="Welcome" id="circle-logo" />
                 <div>
                     <Route exact path="/" component={Registration} />
                     <Route path="/login" component={Login} />
                 </div>
                 <Link to="/login">Log in</Link>
-                <a href="/logout">log out</a>
             </div>
         </HashRouter>
     );
 }
+
+// <a href="/logout">log out</a>
 
 // <HashRouter>
 //     <div>

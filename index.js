@@ -3,7 +3,7 @@ const app = express();
 const compression = require("compression");
 // const { hasUserId, hasNoUserId } = require("./middleware");
 // const db = require("./utils/db");
-const { hash, compare } = require("./utils/bc");
+// const { hash, compare } = require("./utils/bc");
 const { addUserData } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -50,22 +50,25 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 ///////////////////////////////////////////////////////////////
-// app.post("/welcome", (req, res) => {
-//     console.log("req.body", req.body);
-//     addUserData(
-//         req.body.firstname,
-//         req.body.lastname,
-//         req.body.email,
-//         req.body.password
-//     )
-//         .then(result => {
-//             console.log("RESULT:", result);
-//             res.json(result);
-//         })
-//         .catch(err => {
-//             console.log("ERROR :", err);
-//         });
-// });
+app.post("/register", (req, res) => {
+    console.log("req.body", req.body); //make sure properties are called fir name last name
+    addUserData(
+        req.body.firstname,
+        req.body.lastname,
+        req.body.email,
+        req.body.password
+        // req.session.user_id
+    )
+        .then(result => {
+            console.log("RESULT:", result);
+            res.json({ success: true });
+            //res.data.succes :true
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
 
 /// in this file it will just 2 routes ///
 
