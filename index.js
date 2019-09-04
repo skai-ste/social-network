@@ -77,15 +77,17 @@ app.post("/login", (req, res) => {
     getPassword(req.body.email)
         .then(hashedPsw => {
             console.log("hashedPsw :", hashedPsw);
-            compare(req.body.password, hashedPsw.password).then(match => {
-                console.log("did my pasword match?");
-                console.log(match);
-                if (match) {
-                    res.json({ success: true });
-                } else {
-                    res.json({ success: false });
+            return compare(req.body.password, hashedPsw.password).then(
+                match => {
+                    console.log("did my pasword match?");
+                    console.log(match);
+                    if (match) {
+                        res.json({ success: true });
+                    } else {
+                        res.json({ success: false });
+                    }
                 }
-            });
+            );
         })
         .catch(err => {
             console.log("ERROR :", err);
