@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const compression = require("compression");
+const { hash } = require("./utils/bc");
 // const { hasUserId, hasNoUserId } = require("./middleware");
 // const db = require("./utils/db");
 // const { hash, compare } = require("./utils/bc");
 const { addUserData } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
+const { hasUserId, hasNoUserId } = require("./middleware");
 
 app.use(compression());
 
@@ -50,17 +52,22 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 ///////////////////////////////////////////////////////////////
-app.post("/register", (req, res) => {
-    console.log("req.body", req.body); //make sure properties are called fir name last name
-    addUserData(
-        req.body.firstname,
-        req.body.lastname,
-        req.body.email,
-        req.body.password
-        // req.session.user_id
-    )
+app.post("/register", hasNoUserId, (req, res) => {
+    hash(req.body.password)
+        .then(hashedPsw => {
+            console.log("req.body", req.body); //make sure properties are called first name last name
+            console.log("hashedPsw: ", hashedPsw);
+            return addUserData(
+                req.body.firstname,
+                req.body.lastname,
+                req.body.email,
+                hashedPsw
+            );
+        })
         .then(result => {
             console.log("RESULT:", result);
+            req.session.userId = result.rows[0].id;
+            console.log("result.rows[0].id :", result.rows[0].id);
             res.json({ success: true });
             //res.data.succes :true
         })

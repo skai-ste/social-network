@@ -11,7 +11,7 @@ export default class Registration extends React.Component {
     handleChange(e) {
         // console.log('handleChange running!');
         // console.log("e.target.value: ", e.target.value); //e.target gives back whatever user is typing
-        console.log("e.target.name: ", e.target.name); //any input name is added as a property of e.target, thats wey we love putting names on e.targets
+        // console.log("e.target.name: ", e.target.name); //any input name is added as a property of e.target, thats wey we love putting names on e.targets
         // we use this.setState to PUT information in state! //state its like data object
         this.setState(
             {
@@ -24,15 +24,13 @@ export default class Registration extends React.Component {
         axios
             .post("/register", this.state)
             .then(res => {
-                console.log("res: ", res);
+                console.log("RESSSSS: ", res);
                 //res.data.succes :true
-
-                // if its true I am Redirect to main page "/"
-                // if (data.data.succes OR res.data.succes) {
-                //     location.replace("/");
-                // } else {
-                //     this.setState({ error: true });
-                // }
+                if (res.data.succes) {
+                    location.replace("/");
+                } else {
+                    this.setState({ error: true });
+                }
             })
             .catch(err => {
                 console.log("ERROR", err);
@@ -47,25 +45,35 @@ export default class Registration extends React.Component {
                 {this.state.error && <h1>WROOONG !!!!!!</h1>}
                 <form>
                     <input
+                        type="text"
                         name="first"
                         placeholder="first name"
+                        autoComplete="off"
+                        required
                         onChange={this.handleChange}
                     />{" "}
                     <input
+                        type="text"
                         name="last"
                         placeholder="last name"
+                        autoComplete="off"
+                        required
                         onChange={this.handleChange}
                     />
                     <input
+                        type="email"
                         name="email"
                         placeholder="email"
-                        type="text"
+                        autoComplete="off"
+                        required
                         onChange={this.handleChange}
                     />
                     <input
+                        type="password"
                         name="pasword"
                         placeholder="password"
-                        type="password"
+                        autoComplete="off"
+                        required
                         onChange={this.handleChange}
                     />
                     <button onClick={this.register}>submit</button>
