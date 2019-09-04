@@ -1,19 +1,7 @@
-//////1///////
-// import React from "react";
-// import ReactDOM from "react-dom";
-//
-// import Hello from ".hello"; //go find hello that is in the same directory as start.js
-//
-// ReactDOM.render(<HelloWorld />, document.querySelector("main")); //this render function can be called once per app
-//
-// function HelloWorld() {
-//     return <div>Hello, World!</div>;
-// }
-
-////2////
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from "./welcome.js";
+//go find Welcome that is in the same directory as start.js
 
 let elem;
 if (location.pathname === "/welcome") {
@@ -28,3 +16,4 @@ if (location.pathname === "/welcome") {
 // elem = location.pathname == '/welcome' ? <Hello /> : <p>asdasd</p>
 
 ReactDOM.render(elem, document.querySelector("main"));
+//this render function can be called once per app

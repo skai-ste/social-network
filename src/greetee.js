@@ -1,3 +1,5 @@
-import React from 'react';
+import React from "react";
 
-function
+export default function Greetee(props) {
+    return <span>{props.greetee || "World"}</span>;
+}
