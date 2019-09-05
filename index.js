@@ -2,13 +2,39 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const { hash, compare } = require("./utils/bc");
-const { addUserData, getPassword } = require("./utils/db");
+const { addUserData, getPassword, getUserData } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
+// const s3 = require("./s3");
+// const config = require("./config");
 
 app.use(compression());
 
+///////////// FILE UPLOAD BOILERPLATE ///////////
+// const multer = require("multer");
+// const uidSafe = require("uid-safe");
+// const path = require("path");
+
 app.use(express.json());
+
+// const diskStorage = multer.diskStorage({
+//     destination: function(req, file, callback) {
+//         callback(null, __dirname + "/uploads");
+//     },
+//     filename: function(req, file, callback) {
+//         uidSafe(24).then(function(uid) {
+//             callback(null, uid + path.extname(file.originalname));
+//         });
+//     }
+// });
+//
+// const uploader = multer({
+//     storage: diskStorage,
+//     limits: {
+//         fileSize: 2097152
+//     }
+// });
+///////////// FILE UPLOAD BOILERPLATE ///////////
 
 // app.use(
 //     express.urlencoded({
@@ -60,7 +86,7 @@ app.post("/register", (req, res) => {
             );
         })
         .then(result => {
-            console.log("RESULT:", result);
+            // console.log("RESULT:", result);
             req.session.userId = result.id;
             res.json({ success: true });
         })
@@ -84,6 +110,18 @@ app.post("/login", (req, res) => {
                     res.json({ success: false });
                 }
             });
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/user", (req, res) => {
+    getUserData(req.session.userId)
+        .then(result => {
+            console.log("RESULT: ", result);
+            res.json(result);
         })
         .catch(err => {
             console.log("ERROR :", err);

@@ -27,7 +27,7 @@ export default class Registration extends React.Component {
         axios
             .post("/register", this.state)
             .then(res => {
-                console.log("RESSSSS: ", res);
+                // console.log("RESSSSS: ", res);
                 //res.data.succes :true
                 if (res.data.success) {
                     location.replace("/");

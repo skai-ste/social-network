@@ -8,7 +8,7 @@ export default function Profilepicture({ imageurl, first, last, showModal }) {
             <h2>
                 I am the profilepicture component. My name is: {first} {last}
             </h2>
-            <img onClick={showModal} src={imageurl} alt={(first, last)} />
+            <img onClick={showModal} src={imageurl} />
         </div>
     );
 }

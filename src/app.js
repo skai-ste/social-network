@@ -7,26 +7,25 @@ export class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            first: "Peter",
-            last: "Anderson",
-            imageurl: "https://picsum.photos/200/300?grayscale",
+            first: "",
+            last: "",
+            imageurl: "",
             uploaderIsVisible: false
         };
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.showModal = this.showModal.bind(this);
     }
 
     componentDidMount() {
         console.log("App mounted!");
         axios
-            .post("/user", this.state)
+            .get("/user")
             .then(res => {
-                console.log("RESSSSS: ", res);
-                //res.data.succes :true
-                if (res.data.success) {
-                    location.replace("/");
-                } else {
-                    this.setState({ error: true });
-                }
+                console.log("RES: ", res);
+                this.setState({
+                    first: res.data.firstname,
+                    last: res.data.lastname
+                });
             })
             .catch(err => {
                 console.log("ERROR", err);
@@ -36,6 +35,8 @@ export class App extends React.Component {
         // it will do a db query to find out info about user.
         // in req.session.userId when we have info we can add to state
         // setState.
+
+        //every time I want to ADD DATA TO STATE I have to use setState!
     }
     //toggleModal()
     //if is.State is visible is true then set it to the false

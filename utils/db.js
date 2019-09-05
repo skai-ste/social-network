@@ -28,12 +28,9 @@ exports.getPassword = function(email) {
         });
 };
 
-exports.getUserData = function(id, firstname, lastname, imageurl) {
+exports.getUserData = function(id) {
     return db
-        .query(
-            `INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
-            [id, firstname, lastname, imageurl]
-        )
+        .query(`SELECT * FROM users where id = $1`, [id])
         .then(({ rows }) => {
             return rows[0];
         });
