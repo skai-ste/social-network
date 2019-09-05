@@ -2,13 +2,19 @@ import React from "react";
 
 export default function Profilepicture({ imageurl, first, last, showModal }) {
     console.log("imageurl: ", imageurl);
-    imageurl = imageurl || "/img/default.png";
+    const altTag = `user Imgage of ${first} ${last}`;
+    imageurl = imageurl || "/default.png";
     return (
         <div>
             <h2>
                 I am the profilepicture component. My name is: {first} {last}
             </h2>
-            <img onClick={showModal} src={imageurl} />
+            <img
+                onClick={showModal}
+                src={imageurl}
+                alt={altTag}
+                id="profile-image"
+            />
         </div>
     );
 }
