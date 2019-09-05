@@ -1,6 +1,7 @@
-// import React from "react";
-// import { Profilepicture } from "./profilepicture";
-// import { Uploader } from "./uploader";
+import React from "react";
+import Profilepicture from "./profilepicture";
+import { Uploader } from "./uploader";
+import axios from "./axios";
 
 export class App extends React.Component {
     constructor() {
@@ -16,6 +17,21 @@ export class App extends React.Component {
 
     componentDidMount() {
         console.log("App mounted!");
+        axios
+            .post("/user", this.state)
+            .then(res => {
+                console.log("RESSSSS: ", res);
+                //res.data.succes :true
+                if (res.data.success) {
+                    location.replace("/");
+                } else {
+                    this.setState({ error: true });
+                }
+            })
+            .catch(err => {
+                console.log("ERROR", err);
+                this.setState({ error: true });
+            });
         // we will want to make an axios request to server
         // it will do a db query to find out info about user.
         // in req.session.userId when we have info we can add to state

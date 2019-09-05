@@ -27,3 +27,14 @@ exports.getPassword = function(email) {
             //{ password: "abcdef", id:234 }
         });
 };
+
+exports.getUserData = function(id, firstname, lastname, imageurl) {
+    return db
+        .query(
+            `INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
+            [id, firstname, lastname, imageurl]
+        )
+        .then(({ rows }) => {
+            return rows[0];
+        });
+};
