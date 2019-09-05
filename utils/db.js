@@ -9,18 +9,21 @@ if (process.env.DATABASE_URL) {
 }
 
 exports.addUserData = function(firstname, lastname, email, password) {
-    return db.query(
-        `INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
-        [firstname, lastname, email, password]
-    );
+    return db
+        .query(
+            `INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
+            [firstname, lastname, email, password]
+        )
+        .then(({ rows }) => {
+            return rows[0];
+        });
 };
 
 exports.getPassword = function(email) {
-    console.log("Email:", email);
     return db
         .query(`SELECT password, id FROM users WHERE email = $1`, [email])
         .then(({ rows }) => {
             return rows[0];
-            // return rows[0].password;
+            //{ password: "abcdef", id:234 }
         });
 };

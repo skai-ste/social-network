@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const { hash, compare } = require("./utils/bc");
-// const { hasUserId, hasNoUserId } = require("./middleware");
 const { addUserData, getPassword } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -62,10 +61,8 @@ app.post("/register", (req, res) => {
         })
         .then(result => {
             console.log("RESULT:", result);
-            req.session.userId = result.rows[0].id;
-            console.log("result.rows[0].id :", result.rows[0].id);
+            req.session.userId = result.id;
             res.json({ success: true });
-            //res.data.succes :true
         })
         .catch(err => {
             console.log("ERROR :", err);
@@ -75,30 +72,40 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
     getPassword(req.body.email)
-        .then(hashedPsw => {
-            console.log("hashedPsw :", hashedPsw);
-            return compare(req.body.password, hashedPsw.password).then(
-                match => {
-                    console.log("did my pasword match?");
-                    console.log(match);
-                    if (match) {
-                        res.json({ success: true });
-                    } else {
-                        res.json({ success: false });
-                    }
+        .then(result => {
+            var hashedPsw = result.password;
+            console.log("user :", result);
+            return compare(req.body.password, hashedPsw).then(match => {
+                console.log("did my pasword match?", match);
+                if (match) {
+                    req.session.userId = result.id;
+                    res.json({ success: true });
+                } else {
+                    res.json({ success: false });
                 }
-            );
+            });
         })
         .catch(err => {
             console.log("ERROR :", err);
-            res.render("login", {
-                error: true
-            });
+            res.json({ success: false });
         });
 });
 
+app.get("/welcome", (req, res) => {
+    if (!req.session.userId) {
+        res.sendFile(__dirname + "/index.html");
+    } else {
+        res.redirect("/");
+    }
+});
+
+//// this route needs to be last! /////
 app.get("*", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    if (req.session.userId) {
+        res.sendFile(__dirname + "/index.html");
+    } else {
+        res.redirect("/welcome");
+    }
 });
 //// this route needs to be last! /////
 
