@@ -1,7 +1,14 @@
 import React from "react";
+import Bioeditor from "./bioeditor";
+import ProfilePicture from "./profilepicture";
 
-export default function Profile({ first, last, bio, image, id, setBio }) {
-    return <h1>Hey! I am profile component!</h1>;
+export default function Profile() {
+    return (
+        <React.Fragment>
+            <Bioeditor />
+            <ProfilePicture />
+        </React.Fragment>
+    );
 }
 
 // export default function Profile({ first, last, bio, image, id, setBio }) {

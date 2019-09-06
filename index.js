@@ -64,7 +64,7 @@ app.use(function(req, res, next) {
 
 app.use(express.static("public"));
 // sompresses responses that can be somporessed, like the json files.
-// You should drop it to all other projects too like petition.
+// You should drop it to all other projects too, like petition.
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -78,7 +78,7 @@ if (process.env.NODE_ENV != "production") {
 }
 ///////////////////////////////////////////////////////////////
 app.post("/register", (req, res) => {
-    console.log("req.body", req.body); //make sure properties are called first name last name
+    console.log("req.body", req.body);
     console.log("req.body.password", req.body.password);
     hash(req.body.password)
         .then(hashedPsw => {
@@ -125,7 +125,7 @@ app.post("/login", (req, res) => {
 app.get("/user", (req, res) => {
     getUserData(req.session.userId)
         .then(result => {
-            console.log("RESULT: ", result);
+            // console.log("RESULT: ", result);
             res.json(result);
         })
         .catch(err => {
@@ -144,14 +144,13 @@ app.get("/welcome", (req, res) => {
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     // req.file - the file that was just uploaded
-    // req.body - refers to the values we type in the input fiels
     const { filename } = req.file;
     const url = config.s3Url + filename; //if you got here you have url of img and all other information
     console.log("URL :", url);
 
     addUserImageData(req.session.userId, url)
         .then(result => {
-            console.log("RESUUUULT :", result);
+            console.log("RESULT :", result);
             res.json(result);
         })
         .catch(err => {

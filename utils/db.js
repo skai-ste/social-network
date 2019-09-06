@@ -24,7 +24,6 @@ exports.getPassword = function(email) {
         .query(`SELECT password, id FROM users WHERE email = $1`, [email])
         .then(({ rows }) => {
             return rows[0];
-            //{ password: "abcdef", id:234 }
         });
 };
 
@@ -38,12 +37,10 @@ exports.getUserData = function(id) {
 
 exports.addUserImageData = function(id, imageurl) {
     return db
-        .query(
-            `UPDATE users SET imageurl = $2 WHERE id = $1 RETURNING *`,
-            [id, imageurl]
-            // set the name of the property = value you want.
-            // where id is id i am passing
-        )
+        .query(`UPDATE users SET imageurl = $2 WHERE id = $1 RETURNING *`, [
+            id,
+            imageurl
+        ])
         .then(({ rows }) => {
             return rows[0];
         });

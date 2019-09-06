@@ -2,6 +2,7 @@ import React from "react";
 import Profilepicture from "./profilepicture";
 import { Uploader } from "./uploader";
 import axios from "./axios";
+import Profile from "./profile";
 
 export class App extends React.Component {
     constructor() {
@@ -66,6 +67,7 @@ export class App extends React.Component {
                 {this.state.uploaderIsVisible && (
                     <Uploader setImage={this.setImage} />
                 )}
+                <Profile />
             </React.Fragment>
         );
     }
