@@ -35,3 +35,16 @@ exports.getUserData = function(id) {
             return rows[0];
         });
 };
+
+exports.addUserImageData = function(id, imageurl) {
+    return db
+        .query(
+            `UPDATE users SET imageurl = $2 WHERE id = $1 RETURNING *`,
+            [id, imageurl]
+            // set the name of the property = value you want.
+            // where id is id i am passing
+        )
+        .then(({ rows }) => {
+            return rows[0];
+        });
+};

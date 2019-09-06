@@ -22,6 +22,12 @@ PART 3 / socialnetwork
 
 -   Uploader needs to be passed a function as a prop, that will update the state in App when there is a new image, and when it is time to close the modal.
 
+////////////////////////////////////
+This Uploader component should display as a modal. Whether or not it is displayed should be determined by a property (called, for example, uploaderIsVisible) of the state of the App component. ProfilePic should be passed a function from App for setting this property to true.
+
+The Uploader component should be passed a function for setting the profilePicUrl of the App component's state. After a successful upload, it should call this function and pass to it the url of the image that was just uploaded (your POST route on the server will have to include this url in the response it sends). This should cause ProfilePic to automatically switch to the new image. The function for setting profilePicUrl should also set uploaderIsVisible to false.
+/////////////////////////////////////
+
 -   Uploader will be very similar to what we did in our ImageBoard. i.e. we will need FormData. Make a post request to the server and then use the whole Multer S3 stuff we did in imageBoard.
 
 -   The only difference is that we need to do an UPDATE to our users table rather than in INSERT.

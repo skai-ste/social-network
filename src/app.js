@@ -12,8 +12,8 @@ export class App extends React.Component {
             imageurl: "",
             uploaderIsVisible: false
         };
-        this.componentDidMount = this.componentDidMount.bind(this);
         this.showModal = this.showModal.bind(this);
+        this.setImage = this.setImage.bind(this);
     }
 
     componentDidMount() {
@@ -24,7 +24,8 @@ export class App extends React.Component {
                 console.log("RES: ", res);
                 this.setState({
                     first: res.data.firstname,
-                    last: res.data.lastname
+                    last: res.data.lastname,
+                    imageurl: res.data.imageurl
                 });
             })
             .catch(err => {
@@ -46,6 +47,12 @@ export class App extends React.Component {
             uploaderIsVisible: true
         });
     }
+    setImage(url) {
+        this.setState({
+            imageurl: url,
+            uploaderIsVisible: false
+        });
+    }
     render() {
         return (
             <React.Fragment>
@@ -56,7 +63,9 @@ export class App extends React.Component {
                     imageurl={this.state.imageurl}
                     showModal={this.showModal}
                 />
-                {this.state.uploaderIsVisible && <Uploader />}
+                {this.state.uploaderIsVisible && (
+                    <Uploader setImage={this.setImage} />
+                )}
             </React.Fragment>
         );
     }
@@ -66,3 +75,16 @@ export class App extends React.Component {
 
 // {this.state.uploaderIsVisible && <Uploader />}
 // conditional renderind
+
+// <Profile
+//     url={this.state.url}
+//     first={this.state.first}
+//     last={this.state.last}
+//     showUploader={() => this.setState({uploaderVisible: true})}
+//     bio={this.state.bio}
+//     setBio={bio => {}}
+// // first name, last name, photo, their bio
+// // it two new component, it's profile component they first name last name, and bio component, its shows users bio and allows to edit it, in app we will render just profile and profile will render two component.
+// // cheldren of profile: profilepic and bioeditor
+// />
+// // <Route component=Profile />

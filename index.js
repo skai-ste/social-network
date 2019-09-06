@@ -2,38 +2,43 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const { hash, compare } = require("./utils/bc");
-const { addUserData, getPassword, getUserData } = require("./utils/db");
+const {
+    addUserData,
+    getPassword,
+    getUserData,
+    addUserImageData
+} = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
-// const s3 = require("./s3");
-// const config = require("./config");
+const s3 = require("./s3");
+const config = require("./config");
 
 app.use(compression());
 
 ///////////// FILE UPLOAD BOILERPLATE ///////////
-// const multer = require("multer");
-// const uidSafe = require("uid-safe");
-// const path = require("path");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
 
 app.use(express.json());
 
-// const diskStorage = multer.diskStorage({
-//     destination: function(req, file, callback) {
-//         callback(null, __dirname + "/uploads");
-//     },
-//     filename: function(req, file, callback) {
-//         uidSafe(24).then(function(uid) {
-//             callback(null, uid + path.extname(file.originalname));
-//         });
-//     }
-// });
-//
-// const uploader = multer({
-//     storage: diskStorage,
-//     limits: {
-//         fileSize: 2097152
-//     }
-// });
+const diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
 ///////////// FILE UPLOAD BOILERPLATE ///////////
 
 // app.use(
@@ -135,6 +140,24 @@ app.get("/welcome", (req, res) => {
     } else {
         res.redirect("/");
     }
+});
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    // req.file - the file that was just uploaded
+    // req.body - refers to the values we type in the input fiels
+    const { filename } = req.file;
+    const url = config.s3Url + filename; //if you got here you have url of img and all other information
+    console.log("URL :", url);
+
+    addUserImageData(req.session.userId, url)
+        .then(result => {
+            console.log("RESUUUULT :", result);
+            res.json(result);
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
 });
 
 //// this route needs to be last! /////
