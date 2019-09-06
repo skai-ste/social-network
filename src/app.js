@@ -39,8 +39,8 @@ export class App extends React.Component {
 
         //every time I want to ADD DATA TO STATE I have to use setState!
     }
-    //toggleModal()
-    //if is.State is visible is true then set it to the false
+    // toggleModal()
+    // if is.State is visible is true then set it to the false
     // if it is falste then set it to the true
     showModal() {
         this.setState({
@@ -75,7 +75,7 @@ export class App extends React.Component {
 
 // {this.state.uploaderIsVisible && <Uploader />}
 // conditional renderind
-
+//
 // <Profile
 //     url={this.state.url}
 //     first={this.state.first}
@@ -83,8 +83,9 @@ export class App extends React.Component {
 //     showUploader={() => this.setState({uploaderVisible: true})}
 //     bio={this.state.bio}
 //     setBio={bio => {}}
-// // first name, last name, photo, their bio
-// // it two new component, it's profile component they first name last name, and bio component, its shows users bio and allows to edit it, in app we will render just profile and profile will render two component.
-// // cheldren of profile: profilepic and bioeditor
+// first name, last name, photo, their bio
+//
+// its two new component, it's profile component they first name last name, and bio component, its shows users bio and allows to edit it, in app we will render just profile and profile will render two component.
+// // children of profile: profilepic and bioeditor
 // />
 // // <Route component=Profile />

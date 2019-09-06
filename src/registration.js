@@ -11,10 +11,6 @@ export default class Registration extends React.Component {
         this.register = this.register.bind(this);
     }
     handleChange(e) {
-        // console.log('handleChange running!');
-        // console.log("e.target.value: ", e.target.value); //e.target gives back whatever user is typing
-        // console.log("e.target.name: ", e.target.name); //any input name is added as a property of e.target, thats wey we love putting names on e.targets
-        // we use this.setState to PUT information in state! //state its like data object
         this.setState(
             {
                 [e.target.name]: e.target.value //this is NOT an array -> [e.target.name] <- this is a variable right now
@@ -27,8 +23,6 @@ export default class Registration extends React.Component {
         axios
             .post("/register", this.state)
             .then(res => {
-                // console.log("RESSSSS: ", res);
-                //res.data.succes :true
                 if (res.data.success) {
                     location.replace("/");
                 } else {
@@ -86,6 +80,3 @@ export default class Registration extends React.Component {
         );
     }
 }
-
-// <button>submit</button>
-//on submit call register function and pass this.state as a parameter

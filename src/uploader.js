@@ -14,7 +14,6 @@ export class Uploader extends React.Component {
 
         var formData = new FormData();
         formData.append("file", this.state.file);
-        //you have to use method and loop through it to see what is inside
         axios
             .post("/upload", formData)
             .then(res => {
@@ -26,7 +25,6 @@ export class Uploader extends React.Component {
             });
     }
     handleChange(e) {
-        // console.log("file: ", e.target.files[0]);
         this.setState({ file: e.target.files[0] }, () =>
             console.log("handleChange")
         );
@@ -45,15 +43,9 @@ export class Uploader extends React.Component {
                 <button onClick={this.handleClick}>submit</button>
             </React.Fragment>
         );
-        // you have to put the form for uploading
-        // i am passing this.props.handlechange.
-        // this is how you pass it from the app
-        // this.handle click for button
     }
 }
 
 // all FormData will be in handleclick
 // handle click  will make post request to the server and the server to data base
 // hancle change will grab a file
-
-// those two methods will be here
