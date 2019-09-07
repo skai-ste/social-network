@@ -1,9 +1,16 @@
 import React from "react";
 
-export default function Profilepicture({ imageurl, first, last, showModal }) {
+export default function Profilepicture({
+    imageurl,
+    first,
+    size,
+    last,
+    showModal
+}) {
     console.log("imageurl: ", imageurl);
     const altTag = `user Imgage of ${first} ${last}`;
     imageurl = imageurl || "/default.png";
+    size = size || "normal";
     return (
         <div>
             <h2>
@@ -14,6 +21,7 @@ export default function Profilepicture({ imageurl, first, last, showModal }) {
                 src={imageurl}
                 alt={altTag}
                 id="profile-image"
+                className={size}
             />
         </div>
     );

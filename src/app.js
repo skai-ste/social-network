@@ -11,6 +11,8 @@ export class App extends React.Component {
             first: "",
             last: "",
             imageurl: "",
+            bio: "",
+            setBio: false,
             uploaderIsVisible: false
         };
         this.showModal = this.showModal.bind(this);
@@ -26,7 +28,8 @@ export class App extends React.Component {
                 this.setState({
                     first: res.data.firstname,
                     last: res.data.lastname,
-                    imageurl: res.data.imageurl
+                    imageurl: res.data.imageurl,
+                    bio: res.data.bio
                 });
             })
             .catch(err => {
@@ -67,7 +70,13 @@ export class App extends React.Component {
                 {this.state.uploaderIsVisible && (
                     <Uploader setImage={this.setImage} />
                 )}
-                <Profile />
+                <Profile
+                    first={this.state.first}
+                    last={this.state.last}
+                    bio={this.state.bio}
+                    imageurl={this.state.imageurl}
+                    setBio={this.state.setBio}
+                />
             </React.Fragment>
         );
     }

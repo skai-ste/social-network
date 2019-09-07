@@ -2,26 +2,22 @@ import React from "react";
 import Bioeditor from "./bioeditor";
 import ProfilePicture from "./profilepicture";
 
-export default function Profile() {
+export default function Profile({ first, last, bio, imageurl, setBio }) {
     return (
-        <React.Fragment>
-            <Bioeditor />
-            <ProfilePicture />
-        </React.Fragment>
+        <div id="profile">
+            <h1>
+                {first} {last}
+            </h1>
+            <ProfilePicture
+                first={first}
+                imageurl={imageurl}
+                last={last}
+                size="xl"
+            />
+            <Bioeditor bio={bio} setBio={setBio} />
+        </div>
     );
 }
-
-// export default function Profile({ first, last, bio, image, id, setBio }) {
-//     return (
-//         <div id="profile">
-//             <h1>
-//                 {first} {last}
-//             </h1>
-//             <ProfilePic firs={first} url={image} last={last} size="xl" />
-//             <BioEditor bio={bio} setBio={setBio} />
-//         </div>
-//     );
-// }
 
 //
 //

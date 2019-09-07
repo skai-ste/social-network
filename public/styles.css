@@ -8,3 +8,6 @@
 #profile-image {
     height: 100px;
 }
+#profile-image.xl {
+    height: 300px;
+}
