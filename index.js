@@ -6,7 +6,8 @@ const {
     addUserData,
     getPassword,
     getUserData,
-    addUserImageData
+    addUserImageData,
+    setUserBio
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -149,6 +150,20 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("URL :", url);
 
     addUserImageData(req.session.userId, url)
+        .then(result => {
+            console.log("RESULT :", result);
+            res.json(result);
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/bio", (req, res) => {
+    const bio = req.body.bio;
+    console.log("POST /bio:", req.body);
+    setUserBio(req.session.userId, bio)
         .then(result => {
             console.log("RESULT :", result);
             res.json(result);

@@ -12,11 +12,11 @@ export class App extends React.Component {
             last: "",
             imageurl: "",
             bio: "",
-            setBio: false,
             uploaderIsVisible: false
         };
         this.showModal = this.showModal.bind(this);
         this.setImage = this.setImage.bind(this);
+        this.setBio = this.setBio.bind(this);
     }
 
     componentDidMount() {
@@ -57,6 +57,20 @@ export class App extends React.Component {
             uploaderIsVisible: false
         });
     }
+    setBio(bio) {
+        axios
+            .post("/bio", { bio: bio })
+            .then(res => {
+                console.log("RES: ", res);
+                this.setState({
+                    bio: bio
+                });
+            })
+            .catch(err => {
+                console.log("ERROR", err);
+                this.setState({ error: true });
+            });
+    }
     render() {
         return (
             <React.Fragment>
@@ -73,9 +87,9 @@ export class App extends React.Component {
                 <Profile
                     first={this.state.first}
                     last={this.state.last}
-                    bio={this.state.bio}
                     imageurl={this.state.imageurl}
-                    setBio={this.state.setBio}
+                    bio={this.state.bio}
+                    setBio={this.setBio}
                 />
             </React.Fragment>
         );

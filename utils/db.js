@@ -45,3 +45,11 @@ exports.addUserImageData = function(id, imageurl) {
             return rows[0];
         });
 };
+
+exports.setUserBio = function(id, bio) {
+    return db
+        .query(`UPDATE users SET bio = $2 WHERE id = $1 RETURNING *`, [id, bio])
+        .then(({ rows }) => {
+            return rows[0];
+        });
+};

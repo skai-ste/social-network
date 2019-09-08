@@ -7,7 +7,6 @@ export default function Profilepicture({
     last,
     showModal
 }) {
-    console.log("imageurl: ", imageurl);
     const altTag = `user Imgage of ${first} ${last}`;
     imageurl = imageurl || "/default.png";
     size = size || "normal";
@@ -28,7 +27,6 @@ export default function Profilepicture({
 }
 
 // export default function Profilepicture(props) {
-//     console.log("imageurl: ", props.imageurl);
 //     let imageurl = props.imageurl || "/img/default.png";
 //     return (
 //         <div>
