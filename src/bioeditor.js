@@ -70,7 +70,7 @@ export default class Bioeditor extends React.Component {
             }
             component = (
                 <div>
-                    <h3>{this.state.bio}</h3>
+                    <h3>{this.props.bio}</h3>
                     <a href="#" onClick={this.showBio}>
                         {buttonTitle}
                     </a>

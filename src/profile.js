@@ -3,6 +3,7 @@ import Bioeditor from "./bioeditor";
 import ProfilePicture from "./profilepicture";
 
 export default function Profile({ first, last, bio, imageurl, setBio }) {
+    console.log("BIO", bio);
     return (
         <div id="profile">
             <h1>
