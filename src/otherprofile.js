@@ -17,7 +17,7 @@ export class OtherProfile extends React.Component {
         axios
             .get("/user/" + this.props.match.params.id + "/info")
             .then(res => {
-                if (res.data.check) {
+                if (res.data.checkId) {
                     this.props.history.push("/");
                 } else {
                     console.log("RESSSSSS: ", res);

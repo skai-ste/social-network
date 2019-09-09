@@ -178,7 +178,7 @@ app.get("/user/:id/info", (req, res) => {
     console.log("req.params.id", req.params.id);
     if (req.session.userId == req.params.id) {
         res.json({
-            check: true
+            checkId: true
         });
     } else {
         getUserData(req.params.id)
