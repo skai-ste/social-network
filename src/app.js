@@ -3,6 +3,8 @@ import Profilepicture from "./profilepicture";
 import { Uploader } from "./uploader";
 import axios from "./axios";
 import Profile from "./profile";
+import OtherProfile from "./otherprofile";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export class App extends React.Component {
     constructor() {
@@ -83,6 +85,26 @@ export class App extends React.Component {
                     bio={this.state.bio}
                     setBio={this.setBio}
                 />
+                <BrowserRouter>
+                    <div>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    id={this.state.id}
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    image={this.state.image}
+                                    onClick={this.showUploader}
+                                    bio={this.state.bio}
+                                    setBio={this.setBio}
+                                />
+                            )}
+                        />
+                        <Route path="/user/:id" component={OtherProfile} />
+                    </div>
+                </BrowserRouter>
             </React.Fragment>
         );
     }

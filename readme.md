@@ -1,18 +1,38 @@
-Social Network - Part 4
+Social Network - Part 5 OtherProfile
 
-    -   bioeditor need two things bio editor and function that changes the biostate.
-    -   either its in edditing mode or in display mode
+1. BrowserRouter should go in App
 
--   A new BioEditor component, which will show the user's bio if they have one and allow them to add one if they don't. Also, if the user does already have a bio, the BioEditor component will allow them to edit it.
+2. OtherProfile must be a class!
 
-////// NOTES //////
+-   when OtherProfile mounts, make axios request to server to get info about user who's page we're on
 
-1. in BioEditor component, we should have a property in state that will determine whether or not the textarea is onscreen or not.
-2. if this property (say bioEditorIsVisible) is set to true then the textarea should be visible. Else it should not be visible.
-3. What to do when user types in a new bio and hits the "save" button?
-4. we're going to handle the user's input in the same way we've done before — listen for change on textarea, store the draft in state, and when the "save" button is clicked make a POST request to server and update our database
-5. Next step: get that new bio to show up on screen WITHOUT having to refresh.
-6. define a method in App (called setBio) that will take the user's new bio and store it in App's state.
-7. Last step: get the button in BioEditor to say edit if the user has a bio, and add if the user doesn't have a bio.
+    -   we'll get the id of the person who's page we're on by doing this.props.match.params.id
 
-////// NOTES //////
+-   when we get response from server, we need to store that info about the user whose page we're on in state
+
+-   once that info is in state, render it onscreen
+
+3. if you're logged in as user 7 and you go to /user/7, you should be redirected back to the / route
+
+-   this.props.history.push('/'); is how to trigger that redirect back to /
+
+4. if user tries to navigate to page of a user who doesn't exist (for example, user tries to go to /user/1928371 but user 1928371 does not exist), you should either: a. render an error message b. redirect back to /
+
+5. IF, in your OtherProfile component, you have Links to other people's profiles, then.... you will encounter a strange bug :)
+
+-   if you're on /user/4/'s page, and on that page you click a link to /user/8's page, React will not rerender the component with user 8's info. The url will change, but onscreen we'll still see user 4's info
+-   this is because React is lazy! If you're render OtherProfile and you click a link to someone else's OtherProfile, React won't rerender because it sees you're trying to render the same component!
+-   we have to force React to rerender when the url changes. We can do that by using the following syntax:
+
+<Route
+path="/user/:id"
+render={props => (
+<OtherProfile
+           key={props.match.url}
+           match={props.match}
+           history={props.history}
+       />
+)}
+/>
+
+-   this syntax just says, "when the url changes, rerender the component!"
