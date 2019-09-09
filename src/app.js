@@ -58,18 +58,10 @@ export class App extends React.Component {
         });
     }
     setBio(bio) {
-        axios
-            .post("/bio", { bio: bio })
-            .then(res => {
-                console.log("RES: ", res);
-                this.setState({
-                    bio: bio
-                });
-            })
-            .catch(err => {
-                console.log("ERROR", err);
-                this.setState({ error: true });
-            });
+        this.setState({
+            bio: bio,
+            bioEditorIsVisible: false
+        });
     }
     render() {
         return (

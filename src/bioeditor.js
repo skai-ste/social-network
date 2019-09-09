@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "./axios";
+
 // CLASS
 //
 export default class Bioeditor extends React.Component {
@@ -21,10 +23,19 @@ export default class Bioeditor extends React.Component {
         );
     }
     setBio() {
-        this.props.setBio(this.state.bio);
-        this.setState({
-            bioEditorIsVisible: false
-        });
+        axios
+            .post("/bio", this.state)
+            .then(res => {
+                console.log("RESRESRES: ", res);
+                this.props.setBio(res.data.bio);
+                this.setState({
+                    bioEditorIsVisible: false
+                });
+            })
+            .catch(err => {
+                console.log("ERROR", err);
+                this.setState({ error: true });
+            });
     }
     showBio() {
         this.setState({
