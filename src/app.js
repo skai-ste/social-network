@@ -1,9 +1,9 @@
 import React from "react";
-import Profilepicture from "./profilepicture";
+import ProfilePicture from "./profilepicture";
 import { Uploader } from "./uploader";
 import axios from "./axios";
 import Profile from "./profile";
-import OtherProfile from "./otherprofile";
+import { OtherProfile } from "./otherprofile";
 import { BrowserRouter, Route } from "react-router-dom";
 
 export class App extends React.Component {
@@ -65,11 +65,14 @@ export class App extends React.Component {
             bioEditorIsVisible: false
         });
     }
+    showUploader() {
+        this.setState({});
+    }
     render() {
         return (
             <React.Fragment>
                 <h1 onClick={this.showModal}>Hello from App</h1>
-                <Profilepicture
+                <ProfilePicture
                     first={this.state.first}
                     last={this.state.last}
                     imageurl={this.state.imageurl}
@@ -78,13 +81,6 @@ export class App extends React.Component {
                 {this.state.uploaderIsVisible && (
                     <Uploader setImage={this.setImage} />
                 )}
-                <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageurl={this.state.imageurl}
-                    bio={this.state.bio}
-                    setBio={this.setBio}
-                />
                 <BrowserRouter>
                     <div>
                         <Route
@@ -95,7 +91,7 @@ export class App extends React.Component {
                                     id={this.state.id}
                                     first={this.state.first}
                                     last={this.state.last}
-                                    image={this.state.image}
+                                    imageurl={this.state.imageurl}
                                     onClick={this.showUploader}
                                     bio={this.state.bio}
                                     setBio={this.setBio}

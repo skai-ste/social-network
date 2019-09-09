@@ -174,6 +174,25 @@ app.post("/bio", (req, res) => {
         });
 });
 
+app.get("/user/:id/info", (req, res) => {
+    console.log("req.params.id", req.params.id);
+    if (req.session.userId == req.params.id) {
+        res.json({
+            check: true
+        });
+    } else {
+        getUserData(req.params.id)
+            .then(result => {
+                console.log("RESULT: ", result);
+                res.json(result);
+            })
+            .catch(err => {
+                console.log("ERROR :", err);
+                res.json({ success: false });
+            });
+    }
+});
+
 //// this route needs to be last! /////
 app.get("*", function(req, res) {
     if (req.session.userId) {
