@@ -21,12 +21,16 @@ export class OtherProfile extends React.Component {
                     this.props.history.push("/");
                 } else {
                     console.log("RESSSSSS: ", res);
-                    this.setState({
-                        first: res.data.firstname,
-                        last: res.data.lastname,
-                        imageurl: res.data.imageurl,
-                        bio: res.data.bio
-                    });
+                    if (!res.data) {
+                        this.props.history.push("/");
+                    } else {
+                        this.setState({
+                            first: res.data.firstname,
+                            last: res.data.lastname,
+                            imageurl: res.data.imageurl,
+                            bio: res.data.bio
+                        });
+                    }
                 }
             })
             .catch(err => {
