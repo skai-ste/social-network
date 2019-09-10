@@ -16,7 +16,6 @@
     object-fit: cover;
 }
 #search-input {
-    height: 30px;
+    height: 15px;
     width: 150px;
-    margin-top: 20px;
 }

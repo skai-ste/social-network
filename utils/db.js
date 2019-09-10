@@ -64,3 +64,14 @@ exports.getUsers = function() {
             return rows;
         });
 };
+
+exports.getMatchingActors = function(val) {
+    return db
+        .query(
+            `SELECT id, imageurl, firstname, lastname FROM users WHERE id ILIKE $1;`,
+            [val + "%"]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};

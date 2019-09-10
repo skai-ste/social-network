@@ -28,12 +28,13 @@ export default function FindPeople() {
                     </div>
                 ))}
             </div>
+            <h2>Search for users:</h2>
             <form>
                 <input
                     id="search-input"
-                    type="search"
+                    type="text"
                     name="text"
-                    placeholder="text"
+                    placeholder="search"
                     autoComplete="off"
                 />
             </form>
