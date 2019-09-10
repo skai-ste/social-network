@@ -5,6 +5,7 @@ import axios from "./axios";
 import Profile from "./profile";
 import { OtherProfile } from "./otherprofile";
 import { BrowserRouter, Route } from "react-router-dom";
+import FindPeople from "./findpeople";
 
 export class App extends React.Component {
     constructor() {
@@ -99,6 +100,7 @@ export class App extends React.Component {
                             )}
                         />
                         <Route path="/user/:id" component={OtherProfile} />
+                        <Route path="/findpeople" component={FindPeople} />
                     </div>
                 </BrowserRouter>
             </React.Fragment>

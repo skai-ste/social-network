@@ -7,7 +7,8 @@ const {
     getPassword,
     getUserData,
     addUserImageData,
-    setUserBio
+    setUserBio,
+    getUsers
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -191,6 +192,18 @@ app.get("/user/:id/info", (req, res) => {
                 res.json({ success: false });
             });
     }
+});
+
+app.get("/users", (req, res) => {
+    getUsers()
+        .then(result => {
+            console.log("RESULT: ", result);
+            res.json(result);
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
 });
 
 //// this route needs to be last! /////

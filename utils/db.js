@@ -53,3 +53,14 @@ exports.setUserBio = function(id, bio) {
             return rows[0];
         });
 };
+
+exports.getUsers = function() {
+    return db
+        .query(
+            `SELECT id, imageurl, firstname, lastname FROM users ORDER BY id DESC
+        LIMIT 3`
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
