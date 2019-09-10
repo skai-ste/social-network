@@ -8,7 +8,8 @@ const {
     getUserData,
     addUserImageData,
     setUserBio,
-    getUsers
+    getUsers,
+    getMatchingActors
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -196,6 +197,19 @@ app.get("/user/:id/info", (req, res) => {
 
 app.get("/users", (req, res) => {
     getUsers()
+        .then(result => {
+            console.log("RESULT: ", result);
+            res.json(result);
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/users/:info", (req, res) => {
+    console.log("req.params", req.params);
+    getMatchingActors()
         .then(result => {
             console.log("RESULT: ", result);
             res.json(result);
