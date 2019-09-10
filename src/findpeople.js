@@ -17,7 +17,26 @@ export default function FindPeople() {
     }, []);
     return (
         <div>
-            <h1>Lates 3 users to join:</h1>
+            <h2>Latest 3 users to join:</h2>
+            <div>
+                {users.map(user => (
+                    <div key={user.id}>
+                        <p>
+                            {user.firstname} {user.lastname}
+                        </p>
+                        <img className="users-pic" src={user.imageurl} />
+                    </div>
+                ))}
+            </div>
+            <form>
+                <input
+                    id="search-input"
+                    type="search"
+                    name="text"
+                    placeholder="text"
+                    autoComplete="off"
+                />
+            </form>
         </div>
     );
 }

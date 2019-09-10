@@ -11,3 +11,12 @@
 #profile-image.xl {
     height: 300px;
 }
+.users-pic {
+    height: 150px;
+    object-fit: cover;
+}
+#search-input {
+    height: 30px;
+    width: 150px;
+    margin-top: 20px;
+}
