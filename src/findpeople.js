@@ -16,18 +16,21 @@ export default function FindPeople() {
                 console.log("ERROR :", err);
             });
     }, []);
-    useEffect(() => {
-        console.log();
-        axios
-            .get("/users/" + info)
-            .then(res => {
-                console.log("response from users:id", res);
-                setUsers(res.data);
-            })
-            .catch(err => {
-                console.log("ERROR :", err);
-            });
-    }, []);
+    useEffect(
+        () => {
+            console.log(`"${info}" has been rendered!`);
+            axios
+                .get("/users/" + info)
+                .then(res => {
+                    console.log("response from users:id", res);
+                    setUsers(res.data);
+                })
+                .catch(err => {
+                    console.log("ERROR :", err);
+                });
+        },
+        [info]
+    );
     const handleChange = e => {
         setInfo(e.target.value);
     };
@@ -53,6 +56,7 @@ export default function FindPeople() {
                     placeholder="search"
                     autoComplete="off"
                     onChange={handleChange}
+                    defaultValue={info}
                 />
             </form>
         </div>
@@ -67,3 +71,24 @@ export default function FindPeople() {
 
 //you want to map over an array of getUsers
 //input field
+
+///1///
+// var newFields = {};
+// for (var prop in fields) {
+//     newFields[prop] = fields[prop];
+// }
+// ///2///
+// var newFields = Object.assign({}, fields);
+// ///3///
+// var newFields = {
+//     ...fields,
+//     name: "Jenny Law"
+// };
+//
+// function Login() {
+//     const [fields, setFields] = useState({});
+//     const[error, setError] = useState();
+//     const onChange = ({target}) => setFields({
+//         ...fields,
+//         [target.name]: target.value
+// });

@@ -10,3 +10,16 @@ CREATE TABLE users (
     bio VARCHAR(599),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS friendships CASCADE;
+
+CREATE TABLE friendships(
+    id SERIAL PRIMARY KEY,
+    receiver_id INT NOT NULL REFERENCES users(id),
+    sender_id INT NOT NULL REFERENCES users(id),
+    accepted BOOLEAN DEFAULT FALSE
+);
+
+SELECT * FROM friendships
+WHERE (reciever_id = $1 AND sender_id = $2)
+OR (reciever_id = $2 AND sender_id = $1)

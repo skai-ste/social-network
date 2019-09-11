@@ -68,7 +68,7 @@ exports.getUsers = function() {
 exports.getMatchingActors = function(val) {
     return db
         .query(
-            `SELECT id, imageurl, firstname, lastname FROM users WHERE id ILIKE $1;`,
+            `SELECT id, imageurl, firstname, lastname FROM users WHERE firstname ILIKE $1;`,
             [val + "%"]
         )
         .then(({ rows }) => {

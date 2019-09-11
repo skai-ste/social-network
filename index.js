@@ -209,7 +209,7 @@ app.get("/users", (req, res) => {
 
 app.get("/users/:info", (req, res) => {
     console.log("req.params", req.params);
-    getMatchingActors()
+    getMatchingActors(req.params.info)
         .then(result => {
             console.log("RESULT: ", result);
             res.json(result);
