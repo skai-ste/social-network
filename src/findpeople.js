@@ -36,17 +36,6 @@ export default function FindPeople() {
     };
     return (
         <div>
-            <h2>Latest 3 users to join:</h2>
-            <div>
-                {users.map(user => (
-                    <div key={user.id}>
-                        <p>
-                            {user.firstname} {user.lastname}
-                        </p>
-                        <img className="users-pic" src={user.imageurl} />
-                    </div>
-                ))}
-            </div>
             <h2>Search for users:</h2>
             <form>
                 <input
@@ -59,6 +48,17 @@ export default function FindPeople() {
                     defaultValue={info}
                 />
             </form>
+            <h2>Latest 3 users to join:</h2>
+            <div>
+                {users.map(user => (
+                    <div key={user.id}>
+                        <p>
+                            {user.firstname} {user.lastname}
+                        </p>
+                        <img className="users-pic" src={user.imageurl} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

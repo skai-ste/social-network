@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "./axios";
 
-// CLASS
-//
 export default class Bioeditor extends React.Component {
     constructor(props) {
         super(props);
@@ -77,8 +75,6 @@ export default class Bioeditor extends React.Component {
                 </div>
             );
         }
-        // one state when you view the bio, another state when you edit bio.
-
         return <React.Fragment>{component}</React.Fragment>;
     }
 }

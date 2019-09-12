@@ -21,7 +21,3 @@ CREATE TABLE friendships(
     sender_id INT NOT NULL REFERENCES users(id),
     accepted BOOLEAN DEFAULT FALSE
 );
-
-SELECT * FROM friendships
-WHERE (reciever_id = $1 AND sender_id = $2)
-OR (reciever_id = $2 AND sender_id = $1)

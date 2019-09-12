@@ -9,7 +9,8 @@ const {
     addUserImageData,
     setUserBio,
     getUsers,
-    getMatchingActors
+    getMatchingActors,
+    getFriendship
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -213,6 +214,24 @@ app.get("/users/:info", (req, res) => {
         .then(result => {
             console.log("RESULT: ", result);
             res.json(result);
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/user/:id/friendship", (req, res) => {
+    getFriendship(req.session.userId, req.params.id)
+        .then(result => {
+            if (result.length == 0) {
+                res.json({
+                    friendship: "addFriend"
+                });
+            } else {
+                result[0];
+            }
+            console.log("RESULT: ", result);
         })
         .catch(err => {
             console.log("ERROR :", err);
