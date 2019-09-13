@@ -224,12 +224,25 @@ app.get("/users/:info", (req, res) => {
 app.get("/user/:id/friendship", (req, res) => {
     getFriendship(req.session.userId, req.params.id)
         .then(result => {
-            if (result.length == 0) {
+            console.log("RESSSSSSULT: ", result);
+            if (result.rows.length == 0) {
                 res.json({
                     friendship: "addFriend"
                 });
             } else {
-                result[0];
+                if (result.rows[0].accepted == true) {
+                    res.json({
+                        friendship: "endFrienship"
+                    });
+                } else if (result.rows[0].sender_id == req.session.userId) {
+                    res.json({
+                        friendship: "cancelFrienship"
+                    });
+                } else {
+                    res.json({
+                        friendship: "acceptFriend"
+                    });
+                }
             }
             console.log("RESULT: ", result);
         })

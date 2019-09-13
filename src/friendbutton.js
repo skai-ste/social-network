@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 
-export default function FindPeople() {
+export default function FriendButton(props) {
     const [buttonState, setButtonState] = useState("addFriend");
 
     useEffect(() => {
         axios
-            .get("/user/" + this.props.match.params.id + "/friendship")
+            .get("/user/" + props.id + "/friendship")
             .then(res => {
                 console.log("response from users", res);
-                let type = res.friendship;
+                let type = res.data.friendship;
                 setButtonState(type);
             })
             .catch(err => {
                 console.log("ERROR :", err);
             });
     }, []);
+    return (
+        <div>
+            <button>{buttonState}</button>
+        </div>
+    );
 }
 // if (type == "addFriend") {} else if (type == "blaba") {}
 
