@@ -16,13 +16,29 @@ export default function FriendButton(props) {
                 console.log("ERROR :", err);
             });
     }, []);
+    const changeFriendship = () => {
+        axios.post("/user/" + props.id + "/friendship").then(res => {
+            console.log("response from users", res);
+            let type = res.data.friendship;
+            setButtonState(type);
+        });
+    };
+    let buttonTitle;
+    if (buttonState == "addFriend") {
+        buttonTitle = "Add friend";
+    } else if (buttonState == "endFrienship") {
+        buttonTitle = "End friendship";
+    } else if (buttonState == "cancelFrienship") {
+        buttonTitle = "Cancel";
+    } else {
+        buttonTitle = "Accept";
+    }
     return (
         <div>
-            <button>{buttonState}</button>
+            <button onClick={changeFriendship}>{buttonTitle}</button>
         </div>
     );
 }
-// if (type == "addFriend") {} else if (type == "blaba") {}
 
 // this.setState({
 //    buttonState: type

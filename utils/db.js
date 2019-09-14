@@ -79,7 +79,7 @@ exports.getMatchingActors = function(val) {
 exports.getFriendship = function(sender_id, receiver_id) {
     return db.query(
         `SELECT * FROM friendships WHERE (receiver_id = $1 AND sender_id = $2) OR (receiver_id = $2 AND sender_id = $1)`,
-        [sender_id, receiver_id]
+        [receiver_id, sender_id]
     );
 };
 //checks relationship between users
@@ -89,7 +89,7 @@ exports.sendFriendshipRequest = function(sender_id, receiver_id) {
     return db
         .query(
             `INSERT INTO friendships (receiver_id, sender_id) VALUES ($1, $2) RETURNING *`,
-            [sender_id, receiver_id]
+            [receiver_id, sender_id]
         )
         .then(({ rows }) => {
             return rows;
@@ -100,7 +100,7 @@ exports.acceptFriendshipRequest = function(sender_id, receiver_id) {
     return db
         .query(
             `UPDATE friendships SET accepted = TRUE WHERE (receiver_id = $1 AND sender_id = $2) RETURNING *`,
-            [sender_id, receiver_id]
+            [receiver_id, sender_id]
         )
         .then(({ rows }) => {
             return rows;
@@ -109,7 +109,7 @@ exports.acceptFriendshipRequest = function(sender_id, receiver_id) {
 
 exports.removeFriendship = function(sender_id, receiver_id) {
     return db.query(
-        `DELETE FROM friendships WHERE (receiver_id = $1 AND sender_id = $2)`,
-        [sender_id, receiver_id]
+        `DELETE FROM friendships WHERE (receiver_id = $1 AND sender_id = $2) OR (receiver_id = $2 AND sender_id = $1)`,
+        [receiver_id, sender_id]
     );
 };

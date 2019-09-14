@@ -10,7 +10,10 @@ const {
     setUserBio,
     getUsers,
     getMatchingActors,
-    getFriendship
+    getFriendship,
+    sendFriendshipRequest,
+    removeFriendship,
+    acceptFriendshipRequest
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -226,25 +229,102 @@ app.get("/user/:id/friendship", (req, res) => {
         .then(result => {
             console.log("RESSSSSSULT: ", result);
             if (result.rows.length == 0) {
+                // No friendship, we are not friends (yet)
                 res.json({
                     friendship: "addFriend"
                 });
             } else {
-                if (result.rows[0].accepted == true) {
+                let friendship = result.rows[0];
+                // We have some relationship
+                if (friendship.accepted == true) {
+                    // We are friends
                     res.json({
                         friendship: "endFrienship"
                     });
-                } else if (result.rows[0].sender_id == req.session.userId) {
-                    res.json({
-                        friendship: "cancelFrienship"
-                    });
                 } else {
-                    res.json({
-                        friendship: "acceptFriend"
-                    });
+                    // We have friendship question
+                    if (friendship.sender_id == req.session.userId) {
+                        // I am the sender, I can cancel if I want
+                        res.json({
+                            friendship: "cancelFrienship"
+                        });
+                    } else {
+                        // I am the receiver of request, I can accept
+                        res.json({
+                            friendship: "acceptFriend"
+                        });
+                    }
                 }
             }
             console.log("RESULT: ", result);
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/user/:id/friendship", (req, res) => {
+    getFriendship(req.session.userId, req.params.id)
+        .then(result => {
+            console.log("POST friendship: ", result.rows);
+            if (result.rows.length == 0) {
+                // No friendship, we are not friends (yet)
+                return sendFriendshipRequest(
+                    req.session.userId,
+                    req.params.id
+                ).then(result => {
+                    // We sent the request, waiting for answer
+                    console.log("send friendship: ", result);
+                    res.json({
+                        friendship: "cancelFrienship"
+                    });
+                });
+            } else {
+                let friendship = result.rows[0];
+                // We have some relationship
+                if (friendship.accepted == true) {
+                    // We are friends
+                    // We want to stop being friends
+                    return removeFriendship(
+                        req.session.userId,
+                        req.params.id
+                    ).then(result => {
+                        // We are not friends anymore, but can become again
+                        console.log("remove friendship: ", result);
+                        res.json({
+                            friendship: "addFriend"
+                        });
+                    });
+                } else {
+                    // We have friendship question
+                    if (friendship.sender_id == req.session.userId) {
+                        // I am the sender, I can cancel if I want
+                        return removeFriendship(
+                            req.session.userId,
+                            req.params.id
+                        ).then(result => {
+                            // We are not friends, but can become
+                            console.log("remove friendship: ", result);
+                            res.json({
+                                friendship: "addFriend"
+                            });
+                        });
+                    } else {
+                        // I am the receiver of request, I can accept
+                        return acceptFriendshipRequest(
+                            req.session.userId,
+                            req.params.id
+                        ).then(result => {
+                            // We are friends, but can stop being friends
+                            console.log("accept friendship: ", result);
+                            res.json({
+                                friendship: "endFrienship"
+                            });
+                        });
+                    }
+                }
+            }
         })
         .catch(err => {
             console.log("ERROR :", err);
