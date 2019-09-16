@@ -13,7 +13,8 @@ const {
     getFriendship,
     sendFriendshipRequest,
     removeFriendship,
-    acceptFriendshipRequest
+    acceptFriendshipRequest,
+    getFriendsList
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 const csurf = require("csurf");
@@ -335,6 +336,18 @@ app.post("/user/:id/friendship", (req, res) => {
         });
 });
 
+app.get("/friends-wannabes/", (req, res) => {
+    getFriendsList(req.session.userId)
+        .then(result => {
+            console.log("RESULT: ", result);
+
+            res.json({ friends: result });
+        })
+        .catch(err => {
+            console.log("ERROR :", err);
+            res.json({ success: false });
+        });
+});
 //// this route needs to be last! /////
 app.get("*", function(req, res) {
     if (req.session.userId) {
