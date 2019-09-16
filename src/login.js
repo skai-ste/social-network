@@ -38,9 +38,9 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div id="login-container">
                 <h1>join our community</h1>
-                {this.state.error && <h1>WROOONG !!!!!!</h1>}
+                {this.state.error && <h3>something went wrong ! ! !</h3>}
                 <form>
                     <input
                         type="email"

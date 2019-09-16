@@ -38,46 +38,51 @@ export default class Registration extends React.Component {
     render() {
         return (
             <div id="register-container">
-                <h1>join us:</h1>
-                {this.state.error && <h1>WROOONG !!!!!!</h1>}
-                <form id="register-inputs">
-                    <input
-                        type="text"
-                        name="first"
-                        placeholder="first name"
-                        autoComplete="off"
-                        required
-                        onChange={this.handleChange}
-                    />{" "}
-                    <input
-                        type="text"
-                        name="last"
-                        placeholder="last name"
-                        autoComplete="off"
-                        required
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="email"
-                        autoComplete="off"
-                        required
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        autoComplete="off"
-                        required
-                        onChange={this.handleChange}
-                    />
-                    <button onClick={this.register}>register</button>
-                </form>
-                <Link id="log-in" to="/login">
-                    Log in
-                </Link>
+                <div id="register-inputs">
+                    <h1>join us:</h1>
+                    {this.state.error && <h3>something went wrong ! ! !</h3>}
+                    <form>
+                        <input
+                            type="text"
+                            name="first"
+                            placeholder="first name"
+                            autoComplete="off"
+                            required
+                            onChange={this.handleChange}
+                        />{" "}
+                        <input
+                            type="text"
+                            name="last"
+                            placeholder="last name"
+                            autoComplete="off"
+                            required
+                            onChange={this.handleChange}
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="email"
+                            autoComplete="off"
+                            required
+                            onChange={this.handleChange}
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                            autoComplete="off"
+                            required
+                            onChange={this.handleChange}
+                        />
+                        <button onClick={this.register}>register</button>
+                    </form>
+                    <p>
+                        Already a member?{" "}
+                        <Link id="log-in" to="/login">
+                            Log in
+                        </Link>
+                    </p>
+                </div>
             </div>
         );
     }

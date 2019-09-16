@@ -3,10 +3,13 @@
 }
 #circle-logo {
     height: 100px;
-    /* width: 100px; */
+    display: flex;
+    position: absolute;
+    margin-top: 25vw;
 }
 #profile-image {
     height: 100px;
+    width: 100px;
 }
 #profile-image.xl {
     height: 300px;
@@ -19,56 +22,43 @@
     height: 15px;
     width: 150px;
 }
-#welcome-template {
-    /* height: 50%; */
-    width: 100%;
+#welcome-container {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap;
+    align-items: flex-start; */
+}
+#welcome-template {
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
     justify-content: center;
+    margin-right: 15vw;
 }
 #welcome-template p {
-    height: 100%;
-    /* width: 100%; */
+    /* height: 100%; */
+    width: 35vw;
+    font-family: "Anton", sans-serif;
+    font-size: 120px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 80px;
-    margin-top: 4vw;
+    align-self: flex-start;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 #register-container {
-    height: 100%;
-    width: 30vw;
+    width: 10vw;
+    /* margin-top: 13vw; */
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    flex-direction: column;
     font-family: "Nunito Sans", sans-serif;
-    margin-left: 18vw;
 }
-#register-text {
-    /* width: 50%; */
-    color: whitesmoke;
-    font-family: "Lexend Deca", sans-serif;
-    font-size: 70px;
-}
-#register-inputs {
-    /* width: 30vw; */
-    /* margin-top: 8vw; */
-    /* margin-left: 18vw; */
-}
-#register-inputs button {
-    /* margin-top: 8vw; */
-    margin-left: 5vw;
-}
-#log-in {
-    /* margin-top: 8vw; */
-    margin-left: 5vw;
+#register-inputs h1 {
+    width: 10vw;
+    font-family: "Nunito Sans", sans-serif;
 }
 input {
     height: 35px;
     width: 250px;
-    /* border: 0; */
-    /* font-family: inherit; */
     font-size: 16px;
     border: 1px solid lightgrey;
     background: none;
@@ -84,6 +74,17 @@ button {
     color: whitesmoke;
     font-family: "Lexend Deca", sans-serif;
     font-size: 15px;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     outline: none;
+}
+#log-in {
+    /* text-decoration: none; */
+}
+#login-container {
+    width: 10vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    font-family: "Nunito Sans", sans-serif;
 }
