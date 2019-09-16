@@ -19,6 +19,9 @@ var cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const s3 = require("./s3");
 const config = require("./config");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+// const io = require("socket.io")(server, { origins: "localhost:8080 myapp.herokuapp.com:*" });
 
 app.use(compression());
 
@@ -342,6 +345,28 @@ app.get("*", function(req, res) {
 });
 //// this route needs to be last! /////
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
+});
+
+///////////////////////////////////////
+
+io.on("connection", socket => {
+    console.log(`A socket with the id ${socket.id} just connected`);
+
+    // io.sockets.sockets["kjhsudh"].emit("hiYou");
+
+    socket.emit("hi", {
+        msg: "hello there"
+    });
+
+    socket.emit("hi", {
+        msg: "Hello there"
+    });
+
+    socket.on("howAreYou", ({ msg }) => console.log(msg));
+
+    socket.on("disconnect", () => {
+        console.log(`A socket with the id ${socket.id} just disconected`);
+    });
 });

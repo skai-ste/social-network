@@ -37,10 +37,10 @@ export default class Registration extends React.Component {
     // axios makes request to backend
     render() {
         return (
-            <div>
-                <h1>join our community</h1>
+            <div id="register-container">
+                <h1>join us:</h1>
                 {this.state.error && <h1>WROOONG !!!!!!</h1>}
-                <form>
+                <form id="register-inputs">
                     <input
                         type="text"
                         name="first"
@@ -73,9 +73,11 @@ export default class Registration extends React.Component {
                         required
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.register}>submit</button>
+                    <button onClick={this.register}>register</button>
                 </form>
-                <Link to="/login">Log in</Link>
+                <Link id="log-in" to="/login">
+                    Log in
+                </Link>
             </div>
         );
     }

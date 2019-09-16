@@ -1,5 +1,5 @@
 * {
-    background-color: white;
+    box-sizing: border-box;
 }
 #circle-logo {
     height: 100px;
@@ -18,4 +18,72 @@
 #search-input {
     height: 15px;
     width: 150px;
+}
+#welcome-template {
+    /* height: 50%; */
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#welcome-template p {
+    height: 100%;
+    /* width: 100%; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 80px;
+    margin-top: 4vw;
+}
+#register-container {
+    height: 100%;
+    width: 30vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    font-family: "Nunito Sans", sans-serif;
+    margin-left: 18vw;
+}
+#register-text {
+    /* width: 50%; */
+    color: whitesmoke;
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 70px;
+}
+#register-inputs {
+    /* width: 30vw; */
+    /* margin-top: 8vw; */
+    /* margin-left: 18vw; */
+}
+#register-inputs button {
+    /* margin-top: 8vw; */
+    margin-left: 5vw;
+}
+#log-in {
+    /* margin-top: 8vw; */
+    margin-left: 5vw;
+}
+input {
+    height: 35px;
+    width: 250px;
+    /* border: 0; */
+    /* font-family: inherit; */
+    font-size: 16px;
+    border: 1px solid lightgrey;
+    background: none;
+    margin-top: 15px;
+    color: grey;
+    outline: none;
+}
+button {
+    height: 2rem;
+    width: 7rem;
+    background-color: #1a1a1a;
+    border: 1px whitesmoke solid;
+    color: whitesmoke;
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 15px;
+    margin-top: 50px;
+    outline: none;
 }
