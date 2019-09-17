@@ -8,3 +8,21 @@ export async function receiveFriends() {
         friends: data.friends
     };
 }
+
+export async function acceptFriendRequest(user_id) {
+    const { data } = await axios.post("/user/" + user_id + "/friendship");
+    console.log("accepted friend", data);
+    return {
+        type: "ACCEPT_FRIEND_REQUEST",
+        user_id: user_id
+    };
+}
+
+export async function unfriend(user_id) {
+    const { data } = await axios.post("/user/" + user_id + "/friendship");
+    console.log("unfriended", data);
+    return {
+        type: "UNFRIEND",
+        user_id: user_id
+    };
+}

@@ -9,13 +9,13 @@
 }
 #profile-image {
     height: 100px;
-    width: 100px;
 }
 #profile-image.xl {
     height: 300px;
 }
 .users-pic {
     height: 150px;
+    width: 150px;
     object-fit: cover;
 }
 #search-input {

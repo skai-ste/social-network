@@ -16,10 +16,24 @@ export function Chat() {
         }
     };
 
+    const elemRef = useRef();
+
+    useEffect(() => {
+        console.log("chat mounted");
+        console.log("elemRef:", elemRef.current);
+        console.log("scroll top", elemRef.current.scrollTop);
+        console.log("scroll height: ", elemRef.current.scrollHeight);
+        console.log("client height: ", elemRef.current.clientHeight);
+        elemRef.current.scrollTop =
+            elemRef.current.scrollHeight - elemRef.current.clientHeight;
+
+        //if user types we want to keep running this user effect, so in array you will put smth from redux
+    }, []);
+
     return (
         <div className="chat">
             <h1>Chat Room!</h1>
-            <div className="chat-messages">
+            <div className="chat-messages" ref={elemRef}>
                 <p>Chat Messages will go there</p>
                 <p>Chat Messages will go there</p>
                 <p>Chat Messages will go there</p>

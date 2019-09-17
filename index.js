@@ -17,7 +17,7 @@ const {
     getFriendsList
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
-const csurf = require("csurf");
+// const csurf = require("csurf");
 const s3 = require("./s3");
 const config = require("./config");
 const server = require("http").Server(app);
@@ -69,12 +69,12 @@ io.use(function(socket, next) {
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
 });
 
-app.use(csurf());
+// app.use(csurf());
 
-app.use(function(req, res, next) {
-    res.cookie("mytoken", req.csrfToken());
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.cookie("mytoken", req.csrfToken());
+//     next();
+// });
 
 app.use(express.static("public"));
 // sompresses responses that can be somporessed, like the json files.
