@@ -58,13 +58,16 @@ const uploader = multer({
 //     })
 // );
 ///////?///////
+const cookieSessionMiddleWare = cookieSession({
+    secret: `I'm happy babe.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90 //how long you want to set the cookie
+});
 
-app.use(
-    cookieSession({
-        secret: `I'm happy babe.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14 //how long you want to set the cookie
-    })
-);
+app.use(cookieSessionMiddleWare);
+
+io.use(function(socket, next) {
+    cookieSessionMiddleWare(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 
@@ -364,22 +367,52 @@ server.listen(8080, function() {
 
 ///////////////////////////////////////
 
+///////SERVER SIDE SOCKET CODE//////
 io.on("connection", socket => {
-    console.log(`A socket with the id ${socket.id} just connected`);
+    console.log(`a socket with the id ${socket.id} just connected`);
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+    let userId = socket.request.session.userId;
 
-    // io.sockets.sockets["kjhsudh"].emit("hiYou");
-
-    socket.emit("hi", {
-        msg: "hello there"
-    });
-
-    socket.emit("hi", {
-        msg: "Hello there"
-    });
-
-    socket.on("howAreYou", ({ msg }) => console.log(msg));
-
-    socket.on("disconnect", () => {
-        console.log(`A socket with the id ${socket.id} just disconected`);
+    socket.on("My amazing chat message", msg => {
+        console.log("message received!");
+        console.log("and this is the message: ", msg);
+        io.sockets.emit("message from server", msg);
     });
 });
+
+// WE NEED TO DO 2 THINGS IN HERE....
+// 1. We need to make a DB query ... to get the last 10 chat messages...
+// db.getLastTenChatMessages().then(data => {
+// here is where we EMIT those chat message....
+// something like ...
+// io.sockets.emit('chatMessages', data.rows)
+// })
+
+// 2. Deal with a new chat message...
+// socket.on('newMessage', (msg) => {
+// 1. get all the info about the user i.e. a db query.
+// 2. add chat message to db.
+// 3. could create a chat message object or use data from above query...
+// 4. io.sockets.emit('new chat message')
+// })
+
+/////////EXAMPL/////////////
+
+// io.sockets.sockets["kjhsudh"].emit("hiYou");
+
+//     socket.emit("hi", {
+//         msg: "hello there"
+//     });
+//
+//     socket.emit("hi", {
+//         msg: "Hello there"
+//     });
+//
+//     socket.on("howAreYou", ({ msg }) => console.log(msg));
+//
+//     socket.on("disconnect", () => {
+//         console.log(`A socket with the id ${socket.id} just disconected`);
+//     });
+// });

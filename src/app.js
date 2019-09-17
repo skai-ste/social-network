@@ -1,6 +1,7 @@
 import React from "react";
 import ProfilePicture from "./profilepicture";
 import { Uploader } from "./uploader";
+import { Chat } from "./chat";
 import axios from "./axios";
 import Profile from "./profile";
 import { OtherProfile } from "./otherprofile";
@@ -103,6 +104,7 @@ export class App extends React.Component {
                         <Route path="/user/:id" component={OtherProfile} />
                         <Route path="/findpeople" component={FindPeople} />
                         <Route path="/friends" component={Friends} />
+                        <Route path="/chat" component={Chat} />
                     </div>
                 </BrowserRouter>
             </React.Fragment>
