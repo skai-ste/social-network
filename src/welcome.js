@@ -8,10 +8,10 @@ export default function Welcome() {
         <HashRouter>
             <div id="welcome-container">
                 <div id="welcome-template">
-                    <p>GIVE</p>
-                    <p>SOMETHING</p>
-                    <p>BACK</p>
-                    <img src="/circle.gif" alt="Welcome" id="circle-logo" />
+                    <p id="white-word">GIVE</p>
+                    <p id="white-word">SOMETHING</p>
+                    <p id="back-word">BACK</p>
+                    <p id="white-word">KK</p>
                 </div>
                 <div>
                     <Route exact path="/" component={Registration} />

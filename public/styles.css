@@ -1,11 +1,6 @@
 * {
     box-sizing: border-box;
-}
-#circle-logo {
-    height: 100px;
-    display: flex;
-    position: absolute;
-    margin-top: 25vw;
+    background-color: rgb(34, 0, 255);
 }
 #profile-image {
     height: 100px;
@@ -22,38 +17,43 @@
     height: 15px;
     width: 150px;
 }
+
 #welcome-container {
     display: flex;
-    /* flex-wrap: wrap;
-    align-items: flex-start; */
+    flex-wrap: wrap;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
 }
 #welcome-template {
     display: flex;
-    /* flex-wrap: wrap; */
-    flex-direction: column;
-    justify-content: center;
-    margin-right: 15vw;
+    flex-wrap: wrap;
+    align-items: center;
 }
-#welcome-template p {
-    /* height: 100%; */
-    width: 35vw;
+#back-word {
     font-family: "Anton", sans-serif;
     font-size: 120px;
     display: flex;
-    align-self: flex-start;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-left: 30px;
+    color: black;
+}
+#white-word {
+    font-family: "Anton", sans-serif;
+    font-size: 120px;
+    display: flex;
+    margin-left: 30px;
+    color: whitesmoke;
 }
 #register-container {
     width: 10vw;
-    /* margin-top: 13vw; */
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     font-family: "Nunito Sans", sans-serif;
 }
-#register-inputs h1 {
-    width: 10vw;
+#register-container h1 {
+    /* width: 10vw; */
     font-family: "Nunito Sans", sans-serif;
 }
 input {
@@ -62,24 +62,29 @@ input {
     font-size: 16px;
     border: 1px solid lightgrey;
     background: none;
+    margin-right: 3px;
+    margin-left: 3px;
     margin-top: 15px;
-    color: grey;
+    color: whitesmoke;
     outline: none;
+    padding: 5px;
 }
 button {
-    height: 2rem;
+    height: 35px;
     width: 7rem;
     background-color: #1a1a1a;
     border: 1px whitesmoke solid;
     color: whitesmoke;
     font-family: "Lexend Deca", sans-serif;
     font-size: 15px;
-    margin-top: 30px;
+    cursor: pointer;
+    margin-left: 3px;
+    margin-top: 15px;
     margin-bottom: 30px;
     outline: none;
 }
 #log-in {
-    /* text-decoration: none; */
+    color: whitesmoke;
 }
 #login-container {
     width: 10vw;

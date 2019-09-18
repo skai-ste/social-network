@@ -39,7 +39,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <div id="login-container">
-                <h1>join our community</h1>
+                <h1>log in ::</h1>
                 {this.state.error && <h3>something went wrong ! ! !</h3>}
                 <form>
                     <input
@@ -58,7 +58,7 @@ export default class Login extends React.Component {
                         required
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.login}>submit</button>
+                    <button onClick={this.login}>log in</button>
                 </form>
             </div>
         );
