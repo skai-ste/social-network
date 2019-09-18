@@ -32,15 +32,17 @@ export class Uploader extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <h3>Want to change your picture?</h3>
-                <input
-                    className="inputfile"
-                    onChange={this.handleChange}
-                    name="file"
-                    type="file"
-                    accept="image/*"
-                />
-                <button onClick={this.handleClick}>submit</button>
+                <div className="modal-appear">
+                    <h3>want to change your profile picture?</h3>
+                    <input
+                        className="inputfile"
+                        onChange={this.handleChange}
+                        name="file"
+                        type="file"
+                        accept="image/*"
+                    />
+                    <button onClick={this.handleClick}>submit</button>
+                </div>
             </React.Fragment>
         );
     }

@@ -52,8 +52,9 @@ export class App extends React.Component {
     // if is.State is visible is true then set it to the false
     // if it is falste then set it to the true
     showModal() {
+        let visible = !this.state.uploaderIsVisible;
         this.setState({
-            uploaderIsVisible: true
+            uploaderIsVisible: visible
         });
     }
     setImage(url) {
@@ -74,16 +75,20 @@ export class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <h1 onClick={this.showModal}>Hello from App</h1>
-                <ProfilePicture
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageurl={this.state.imageurl}
-                    showModal={this.showModal}
-                />
-                {this.state.uploaderIsVisible && (
-                    <Uploader setImage={this.setImage} />
-                )}
+                <div className="header">
+                    <div>
+                        <ProfilePicture
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageurl={this.state.imageurl}
+                            showModal={this.showModal}
+                        />
+                        {this.state.uploaderIsVisible && (
+                            <Uploader setImage={this.setImage} />
+                        )}
+                        <p id="logo-kk">KK KK KKKK KK</p>
+                    </div>
+                </div>
                 <BrowserRouter>
                     <div>
                         <Route

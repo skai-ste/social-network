@@ -34,7 +34,7 @@ export default function FriendButton(props) {
         buttonTitle = "Accept";
     }
     return (
-        <div>
+        <div className="friend-button">
             <button onClick={changeFriendship}>{buttonTitle}</button>
         </div>
     );

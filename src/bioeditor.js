@@ -44,7 +44,7 @@ export default class Bioeditor extends React.Component {
         let component;
         if (this.state.bioEditorIsVisible) {
             component = (
-                <div>
+                <div className="bioeditor">
                     <textarea
                         onChange={this.handleChange}
                         id="bio-area"
@@ -64,14 +64,16 @@ export default class Bioeditor extends React.Component {
             if (hasBio) {
                 buttonTitle = "edit";
             } else {
-                buttonTitle = "add your BIO";
+                buttonTitle = "add your bio";
             }
             component = (
                 <div>
                     <h3>{this.props.bio}</h3>
-                    <a href="#" onClick={this.showBio}>
-                        {buttonTitle}
-                    </a>
+                    {this.props.setBio && (
+                        <a id="add-bio" href="#" onClick={this.showBio}>
+                            {buttonTitle}
+                        </a>
+                    )}
                 </div>
             );
         }

@@ -12,9 +12,6 @@ export default function Profilepicture({
     size = size || "normal";
     return (
         <div>
-            <h2>
-                I am the profilepicture component. My name is: {first} {last}
-            </h2>
             <img
                 onClick={showModal}
                 src={imageurl}

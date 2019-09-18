@@ -35,8 +35,8 @@ export default function FindPeople() {
         setInfo(e.target.value);
     };
     return (
-        <div>
-            <h2>Search for users:</h2>
+        <div className="find-friends">
+            <h2>search for users:</h2>
             <form>
                 <input
                     id="search-input"
@@ -48,7 +48,7 @@ export default function FindPeople() {
                     defaultValue={info}
                 />
             </form>
-            <h2>Latest 3 users to join:</h2>
+            <h2>latest 3 users to join:</h2>
             <div>
                 {users.map(user => (
                     <div key={user.id}>

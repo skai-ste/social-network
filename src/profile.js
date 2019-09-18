@@ -4,9 +4,10 @@ import ProfilePicture from "./profilepicture";
 
 export default function Profile({ first, last, bio, imageurl, setBio }) {
     console.log("BIO", bio);
+
     return (
-        <div id="profile">
-            <h1>
+        <div className="profile">
+            <h1 id="profile-names">
                 {first} {last}
             </h1>
             <ProfilePicture
