@@ -25,9 +25,9 @@ export default function Friends() {
     }
 
     return (
-        <div id="friends-list">
+        <div className="friends-list">
             <div>
-                <h1>Friends</h1>
+                <h2>your friends:</h2>
                 {friends.map(user => (
                     <div key={user.id}>
                         <p>
@@ -41,7 +41,7 @@ export default function Friends() {
                 ))}
             </div>
             <div>
-                <h1>Waiting</h1>
+                <h2>people who would like to be friends:</h2>
                 {waiting.map(user => (
                     <div key={user.id}>
                         <p>

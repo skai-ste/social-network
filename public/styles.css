@@ -224,7 +224,23 @@ button {
     outline: none;
     padding: 5px;
 }
-
+.friends-list {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    align-items: flex-start;
+    margin-left: 34px;
+}
+.friends-list h2 {
+    font-family: "Nunito Sans", sans-serif;
+}
+.friend-place {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    align-items: center;
+}
 /* ///////SOCKETS//// */
 
 .chat-messages {
