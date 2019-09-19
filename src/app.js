@@ -88,6 +88,13 @@ export class App extends React.Component {
                         )}
                         <p id="logo-kk">KK KK KKKK KK</p>
                     </div>
+                    <div className="links">
+                        <p>PROFILE</p>
+                        <p>FIND PEOPLE</p>
+                        <p>FRIENDS</p>
+                        <p>CHAT</p>
+                        <p>LOG OUT</p>
+                    </div>
                 </div>
                 <BrowserRouter>
                     <div>

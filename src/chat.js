@@ -32,7 +32,7 @@ export function Chat() {
 
     return (
         <div className="chat">
-            <h1>Chat Room!</h1>
+            <h2>chat chat chat ::</h2>
             <div className="chat-messages" ref={elemRef}>
                 <p>Chat Messages will go there</p>
                 <p>Chat Messages will go there</p>

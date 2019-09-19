@@ -26,7 +26,8 @@ DROP TABLE IF EXISTS chats CASCADE;
 
 CREATE TABLE chats(
     id SERIAL PRIMARY KEY,
-    receiver_id INT NOT NULL REFERENCES users(id),
     sender_id INT NOT NULL REFERENCES users(id),
-    accepted BOOLEAN DEFAULT FALSE
+    message VARCHAR(999),
+    posted_date VARCHAR(499),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
