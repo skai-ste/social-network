@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    margin: 0;
 }
 #welcome-body {
     width: 100%;
@@ -35,6 +36,7 @@
     display: flex;
     margin-left: 30px;
     color: black;
+    padding-top: 10vw;
 }
 #white-word {
     font-family: "Anton", sans-serif;
@@ -42,6 +44,7 @@
     display: flex;
     margin-left: 30px;
     color: whitesmoke;
+    padding-top: 10vw;
 }
 #register-container {
     width: 10vw;
@@ -52,6 +55,8 @@
 }
 #register-container h1 {
     /* width: 10vw; */
+    padding-top: 2vw;
+    padding-bottom: 2vw;
     font-family: "Nunito Sans", sans-serif;
 }
 input {
@@ -91,6 +96,10 @@ button {
     flex-direction: column;
     font-family: "Nunito Sans", sans-serif;
 }
+#login-container h1 {
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+}
 /* /////APP///// */
 .header {
     width: 100%;
@@ -111,7 +120,7 @@ button {
     width: auto;
     position: absolute;
     left: 35px;
-    bottom: 3px;
+    margin-top: 8px;
 }
 #profile-image {
     height: 70px;
@@ -154,6 +163,9 @@ button {
 .inputfile {
     width: 300px;
 }
+.modal-appear h3 {
+    padding-bottom: 10px;
+}
 /* /////PROFILE///// */
 
 .profile {
@@ -165,6 +177,7 @@ button {
 }
 #profile-names {
     margin-top: 320px;
+    margin-bottom: 20px;
 }
 /* /////BIOEDITOR///// */
 .bioeditor {
@@ -191,6 +204,7 @@ button {
     flex-flow: column;
     justify-content: flex-start;
     align-items: center;
+    margin-top: 15px;
 }
 .friend-button {
     display: flex;
@@ -210,6 +224,7 @@ button {
 }
 .find-friends h2 {
     font-family: "Nunito Sans", sans-serif;
+    margin-top: 20px;
 }
 #search-input {
     height: 35px;
@@ -220,6 +235,7 @@ button {
     margin-right: 3px;
     margin-left: 3px;
     margin-bottom: 15px;
+    margin-top: 15px;
     color: black;
     outline: none;
     padding: 5px;
@@ -234,12 +250,18 @@ button {
 }
 .friends-list h2 {
     font-family: "Nunito Sans", sans-serif;
+    margin-top: 20px;
 }
 .friend-place {
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;
     align-items: center;
+}
+p {
+    font-family: "Nunito Sans", sans-serif;
+    margin-top: 15px;
+    margin-bottom: 7px;
 }
 /* ///////SOCKETS//// */
 

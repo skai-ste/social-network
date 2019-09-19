@@ -29,7 +29,7 @@ export default function Friends() {
             <div>
                 <h2>your friends:</h2>
                 {friends.map(user => (
-                    <div key={user.id}>
+                    <div className="friend-place" key={user.id}>
                         <p>
                             {user.firstname} {user.lastname}
                         </p>
@@ -43,7 +43,7 @@ export default function Friends() {
             <div>
                 <h2>people who would like to be friends:</h2>
                 {waiting.map(user => (
-                    <div key={user.id}>
+                    <div className="friend-place" key={user.id}>
                         <p>
                             {user.firstname} {user.lastname}
                         </p>
