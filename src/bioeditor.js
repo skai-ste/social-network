@@ -4,6 +4,7 @@ import axios from "./axios";
 export default class Bioeditor extends React.Component {
     constructor(props) {
         super(props);
+        console.log("props:", props);
         this.state = {
             bio: props.bio,
             bioEditorIsVisible: props.bioEditorIsVisible
@@ -60,7 +61,7 @@ export default class Bioeditor extends React.Component {
             const hasBio =
                 this.state.bio.length != null && this.state.bio.length > 0;
             let buttonTitle;
-
+            console.log("Bio state:", this.state);
             if (hasBio) {
                 buttonTitle = "edit";
             } else {

@@ -14,7 +14,9 @@ const {
     sendFriendshipRequest,
     removeFriendship,
     acceptFriendshipRequest,
-    getFriendsList
+    getFriendsList,
+    addMessage,
+    getMessages
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
 // const csurf = require("csurf");
@@ -373,12 +375,41 @@ io.on("connection", socket => {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
-    let userId = socket.request.session.userId;
+    getMessages()
+        .then(data => {
+            console.log("Have messages", data);
+            socket.emit("chatMessages", { chatMessages: data.reverse() });
+        })
+        .catch(err => {
+            console.log("Get messages error", err);
 
-    socket.on("My amazing chat message", msg => {
-        console.log("message received!");
-        console.log("and this is the message: ", msg);
-        io.sockets.emit("message from server", msg);
+            socket.disconnect(true);
+        });
+
+    let userId = socket.request.session.userId;
+    socket.on("chatMessage", msg => {
+        let date = new Date();
+        addMessage(
+            userId,
+            msg,
+            date.toLocaleDateString() + " " + date.toLocaleTimeString()
+        ).then(message => {
+            console.log("Added message:", message);
+            getUserData(userId)
+                .then(user => {
+                    console.log("From user:", user);
+                    let updatedMessage = message;
+                    updatedMessage.firstname = user.firstname;
+                    updatedMessage.lastname = user.lastname;
+                    updatedMessage.imageurl = user.imageurl;
+                    console.log("Updated message:", user);
+
+                    io.sockets.emit("chatMessage", updatedMessage);
+                })
+                .catch(err => {
+                    console.log("Error from user:", err);
+                });
+        });
     });
 });
 

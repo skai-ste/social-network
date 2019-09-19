@@ -8,6 +8,7 @@ import { OtherProfile } from "./otherprofile";
 import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./findpeople";
 import Friends from "./friends";
+import { Link } from "react-router-dom";
 
 export class App extends React.Component {
     constructor() {
@@ -75,28 +76,28 @@ export class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="header">
-                    <div>
-                        <ProfilePicture
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageurl={this.state.imageurl}
-                            showModal={this.showModal}
-                        />
-                        {this.state.uploaderIsVisible && (
-                            <Uploader setImage={this.setImage} />
-                        )}
-                        <p id="logo-kk">KK KK KKKK KK</p>
-                    </div>
-                    <div className="links">
-                        <p>PROFILE</p>
-                        <p>FIND PEOPLE</p>
-                        <p>FRIENDS</p>
-                        <p>CHAT</p>
-                        <p>LOG OUT</p>
-                    </div>
-                </div>
                 <BrowserRouter>
+                    <div className="header">
+                        <div>
+                            <ProfilePicture
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageurl={this.state.imageurl}
+                                showModal={this.showModal}
+                            />
+                            {this.state.uploaderIsVisible && (
+                                <Uploader setImage={this.setImage} />
+                            )}
+                            <p id="logo-kk">KK KK KKKK KK</p>
+                        </div>
+
+                        <div id="header-links">
+                            <Link to="/">PROFILE </Link>{" "}
+                            <Link to="/findpeople">FIND PEOPLE </Link>
+                            <Link to="/friends">FRIENDS </Link>
+                            <Link to="/chat">CHAT </Link>
+                        </div>
+                    </div>
                     <div>
                         <Route
                             exact

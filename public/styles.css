@@ -139,21 +139,22 @@ button {
     flex-wrap: wrap;
     flex-direction: column; */
 }
-.links {
-    font-family: "Anton", sans-serif;
-    font-size: 20px;
-    color: whitesmoke;
+#header-links {
     height: 30px;
     width: auto;
     position: absolute;
-    right: 15vw;
-    margin-top: 8px;
+    right: 10vw;
+    margin-top: 15px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 }
-.links p {
+#header-links a {
     margin-right: 25px;
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 30px;
+    font-family: "Anton", sans-serif;
 }
 .users-pic {
     height: 150px;
@@ -294,25 +295,43 @@ p {
     font-family: "Nunito Sans", sans-serif;
 }
 .chat-messages {
+    background-color: lightgrey;
     overflow-y: scroll;
-    margin-top: 2vw;
-    height: 300px;
-    width: 400px;
+    margin-top: 4vw;
+    height: 500px;
+    width: 700px;
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;
-    align-items: center;
+    align-items: flex-start;
     font-family: "Nunito Sans", sans-serif;
 }
+.chat-messages img {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+    /* position: relative; */
+}
+.chat-messages h3 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+}
+.chat-messages p {
+    margin-bottom: 2vw;
+}
+.chat-content {
+    padding: 10px;
+}
 .chat textarea {
-    height: 100px;
+    height: 150px;
     background-color: white;
     color: black;
     font-family: "Nunito Sans", sans-serif;
     outline: none;
     padding: 5px;
     font-size: 16px;
-    width: 400px;
+    width: 700px;
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;

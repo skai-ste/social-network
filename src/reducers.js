@@ -26,8 +26,18 @@ export default function(state = {}, action) {
             ...state,
             friends: state.friends.filter(friend => friend.id != action.user_id)
         };
+    } else if (action.type == "CHAT_MESSAGES") {
+        state = {
+            ...state,
+            messages: action.messages
+        };
+    } else if (action.type == "CHAT_MESSAGE") {
+        state = {
+            ...state,
+            messages: [...state.messages, action.message]
+        };
     }
 
-    console.log("reducer.state", state);
+    console.log("reducer.state", JSON.stringify(state));
     return state;
 }

@@ -3,15 +3,15 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 
 export function Chat() {
-    const chatMessages = useSelector(state => state && state.chatMessages);
-    console.log("here are my last 10 chat messages: ", chatMessages);
+    const chatMessages = useSelector(state => state && state.messages);
+    console.log("here are my chat messages: ", chatMessages);
 
     const keyCheck = e => {
         console.log("e.key", e.key);
         if (e.key === "Enter") {
             e.preventDefault();
             console.log(e.target.value);
-            socket.emit("My amazing chat message", e.target.value);
+            socket.emit("chatMessage", e.target.value);
             e.target.value = "";
         }
     };
@@ -34,16 +34,17 @@ export function Chat() {
         <div className="chat">
             <h2>chat chat chat ::</h2>
             <div className="chat-messages" ref={elemRef}>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
-                <p>Chat Messages will go there</p>
+                {chatMessages &&
+                    chatMessages.map(message => (
+                        <div className="chat-content" key={message.id}>
+                            <img className="users-pic" src={message.imageurl} />
+                            <h3>
+                                {message.firstname} {message.lastname}{" "}
+                                {message.posted_date}
+                            </h3>
+                            <p> {message.message} </p>
+                        </div>
+                    ))}
             </div>
             <textarea
                 placeholder="Add your message here"

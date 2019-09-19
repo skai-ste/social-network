@@ -1,5 +1,5 @@
 import * as io from "socket.io-client";
-// import { chatMessages, chatMessage } from "./actions";
+import { chatMessages, chatMessage } from "./actions";
 
 export let socket;
 
@@ -7,10 +7,14 @@ export function init(store) {
     if (!socket) {
         socket = io.connect();
 
-        socket.on("message from server", msg => {
-            console.log(`
-                Got message from the front end about to start redux stuff by dispaching an action! My message: ${msg}
-                `);
+        socket.on("chatMessages", msgs => {
+            store.dispatch(chatMessages(msgs.chatMessages));
+            console.log("Got all messages:", msgs);
+        });
+
+        socket.on("chatMessage", msg => {
+            store.dispatch(chatMessage(msg));
+            console.log("Got new message:", msg);
         });
     }
 }

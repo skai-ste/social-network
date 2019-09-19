@@ -132,3 +132,31 @@ exports.getFriendsList = function(user_id) {
             return rows;
         });
 };
+
+exports.addMessage = function(sender_id, message, posted_date) {
+    return db
+        .query(
+            `INSERT INTO chats (sender_id, message, posted_date) VALUES ($1, $2, $3) RETURNING *`,
+            [sender_id, message, posted_date]
+        )
+        .then(({ rows }) => {
+            return rows[0];
+        });
+};
+
+exports.getMessages = function() {
+    return db
+        .query(
+            `
+            SELECT chats.id, users.firstname, users.lastname, users.imageurl, message, posted_date
+            FROM chats
+            JOIN users
+            ON (sender_id = users.id)
+            ORDER BY chats.created_at DESC
+            LIMIT 10
+        `
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
