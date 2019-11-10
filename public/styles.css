@@ -135,9 +135,6 @@ button {
 }
 #profile-image.xl {
     height: 300px;
-    /* display: flex;
-    flex-wrap: wrap;
-    flex-direction: column; */
 }
 #header-links {
     height: 30px;
@@ -337,4 +334,7 @@ p {
     flex-flow: column;
     align-items: center;
     outline: none;
+}
+.navigators {
+    color: whitesmoke;
 }
