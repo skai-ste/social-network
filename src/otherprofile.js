@@ -14,14 +14,12 @@ export class OtherProfile extends React.Component {
         };
     }
     componentDidMount() {
-        console.log("App mounted!");
         axios
             .get("/user/" + this.props.match.params.id + "/info")
             .then(res => {
                 if (res.data.checkId) {
                     this.props.history.push("/");
                 } else {
-                    console.log("RESSSSSS: ", res);
                     if (!res.data) {
                         this.props.history.push("/");
                     } else {

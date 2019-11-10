@@ -7,7 +7,6 @@ if (process.env.DATABASE_URL) {
     const { dbuser, dbpass } = require("../secrets.json");
     db = spicedPg(`postgres:${dbuser}:${dbpass}@localhost:5432/socialnetwork`);
 }
-
 exports.addUserData = function(firstname, lastname, email, password) {
     return db
         .query(
@@ -18,7 +17,6 @@ exports.addUserData = function(firstname, lastname, email, password) {
             return rows[0];
         });
 };
-
 exports.getPassword = function(email) {
     return db
         .query(`SELECT password, id FROM users WHERE email = $1`, [email])
@@ -26,7 +24,6 @@ exports.getPassword = function(email) {
             return rows[0];
         });
 };
-
 exports.getUserData = function(id) {
     return db
         .query(`SELECT * FROM users where id = $1`, [id])
@@ -34,7 +31,6 @@ exports.getUserData = function(id) {
             return rows[0];
         });
 };
-
 exports.addUserImageData = function(id, imageurl) {
     return db
         .query(`UPDATE users SET imageurl = $2 WHERE id = $1 RETURNING *`, [
@@ -45,7 +41,6 @@ exports.addUserImageData = function(id, imageurl) {
             return rows[0];
         });
 };
-
 exports.setUserBio = function(id, bio) {
     return db
         .query(`UPDATE users SET bio = $2 WHERE id = $1 RETURNING *`, [id, bio])
@@ -53,7 +48,6 @@ exports.setUserBio = function(id, bio) {
             return rows[0];
         });
 };
-
 exports.getUsers = function() {
     return db
         .query(
@@ -64,7 +58,6 @@ exports.getUsers = function() {
             return rows;
         });
 };
-
 exports.getMatchingActors = function(val) {
     return db
         .query(
@@ -75,16 +68,12 @@ exports.getMatchingActors = function(val) {
             return rows;
         });
 };
-
 exports.getFriendship = function(sender_id, receiver_id) {
     return db.query(
         `SELECT * FROM friendships WHERE (receiver_id = $1 AND sender_id = $2) OR (receiver_id = $2 AND sender_id = $1)`,
         [receiver_id, sender_id]
     );
 };
-//checks relationship between users
-//check if sender id is you or sender id is another person
-
 exports.sendFriendshipRequest = function(sender_id, receiver_id) {
     return db
         .query(
@@ -95,7 +84,6 @@ exports.sendFriendshipRequest = function(sender_id, receiver_id) {
             return rows;
         });
 };
-
 exports.acceptFriendshipRequest = function(sender_id, receiver_id) {
     return db
         .query(
@@ -106,14 +94,12 @@ exports.acceptFriendshipRequest = function(sender_id, receiver_id) {
             return rows;
         });
 };
-
 exports.removeFriendship = function(sender_id, receiver_id) {
     return db.query(
         `DELETE FROM friendships WHERE (receiver_id = $1 AND sender_id = $2) OR (receiver_id = $2 AND sender_id = $1)`,
         [receiver_id, sender_id]
     );
 };
-
 exports.getFriendsList = function(user_id) {
     console.log("user_id", user_id);
     return db
@@ -132,7 +118,6 @@ exports.getFriendsList = function(user_id) {
             return rows;
         });
 };
-
 exports.addMessage = function(sender_id, message, posted_date) {
     return db
         .query(
@@ -143,7 +128,6 @@ exports.addMessage = function(sender_id, message, posted_date) {
             return rows[0];
         });
 };
-
 exports.getMessages = function() {
     return db
         .query(

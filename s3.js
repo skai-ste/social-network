@@ -3,9 +3,9 @@ const fs = require("fs");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {
-    secrets = process.env; // in prod the secrets are environment variables
+    secrets = process.env;
 } else {
-    secrets = require("./secrets"); // in dev they are in secrets.json which is listed in .gitignore
+    secrets = require("./secrets");
 }
 
 const s3 = new aws.S3({
@@ -15,7 +15,6 @@ const s3 = new aws.S3({
 
 exports.upload = function(req, res, next) {
     if (!req.file) {
-        console.log("STATUS 500");
         return res.send(500);
     }
     const { filename, mimetype, size, path } = req.file;
@@ -23,23 +22,20 @@ exports.upload = function(req, res, next) {
     const promise = s3
         .putObject({
             Bucket: "spicedling",
-            ACL: "public-read", //everyone who has url of the img can read it
+            ACL: "public-read",
             Key: filename,
-            Body: fs.createReadStream(path), // The path is available as a property of req.file
+            Body: fs.createReadStream(path),
             ContentType: mimetype,
-            ContentLength: size // You can use the size property of req.file for this
+            ContentLength: size
         })
         .promise();
 
     promise
         .then(() => {
-            // it worked!!!
             next();
-            //that means the file is at amazon, and if it there the url is s2/wwwmaazon.com/name of your bucket/maybeimgname
-            fs.unlink(path, () => {}); //when it get too many files
+            fs.unlink(path, () => {});
         })
         .catch(err => {
-            // uh oh
             console.log(err);
             res.sendStatus(500);
         });

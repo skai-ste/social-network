@@ -10,24 +10,19 @@ export class Uploader extends React.Component {
     }
     handleClick(e) {
         e.preventDefault();
-        console.log("this: ", this);
-
         var formData = new FormData();
         formData.append("file", this.state.file);
         axios
             .post("/upload", formData)
             .then(res => {
                 this.props.setImage(res.data.imageurl);
-                console.log("res.data: ", res.data);
             })
             .catch(function(err) {
                 console.log("err in post /upload: ", err);
             });
     }
     handleChange(e) {
-        this.setState({ file: e.target.files[0] }, () =>
-            console.log("handleChange")
-        );
+        this.setState({ file: e.target.files[0] });
     }
     render() {
         return (
@@ -47,7 +42,3 @@ export class Uploader extends React.Component {
         );
     }
 }
-
-// all FormData will be in handleclick
-// handle click  will make post request to the server and the server to data base
-// hancle change will grab a file

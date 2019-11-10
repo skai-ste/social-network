@@ -5,7 +5,6 @@
 #welcome-body {
     width: 100%;
     min-height: 100vw;
-    /* position: fixed; */
     z-index: 100;
     top: 0;
     bottom: 0;
@@ -17,7 +16,6 @@
     height: 15px;
     width: 150px;
 }
-
 #welcome-container {
     display: flex;
     flex-wrap: wrap;
@@ -54,7 +52,6 @@
     font-family: "Nunito Sans", sans-serif;
 }
 #register-container h1 {
-    /* width: 10vw; */
     padding-top: 2vw;
     padding-bottom: 2vw;
     font-family: "Nunito Sans", sans-serif;
@@ -100,7 +97,6 @@ button {
     padding-top: 2vw;
     padding-bottom: 2vw;
 }
-/* /////APP///// */
 .header {
     width: 100%;
     height: 100px;
@@ -158,7 +154,6 @@ button {
     width: 150px;
     object-fit: cover;
 }
-/* /////UPLOADER///// */
 .modal-appear {
     position: fixed;
     height: 200px;
@@ -166,7 +161,6 @@ button {
     left: 0;
     right: 0;
     background-color: rgb(34, 0, 255);
-    /* z-index: 33333; */
     color: whitesmoke;
     font-family: "Nunito Sans", sans-serif;
     display: flex;
@@ -180,8 +174,6 @@ button {
 .modal-appear h3 {
     padding-bottom: 10px;
 }
-/* /////PROFILE///// */
-
 .profile {
     display: flex;
     flex-wrap: wrap;
@@ -194,7 +186,6 @@ button {
     margin-bottom: 20px;
     font-family: "Nunito Sans", sans-serif;
 }
-/* /////BIOEDITOR///// */
 .bioeditor {
     display: flex;
     flex-wrap: wrap;
@@ -229,7 +220,6 @@ button {
     justify-content: center;
     align-items: center;
 }
-/* ///////FIND FRIENDS//////// */
 .find-friends {
     margin-top: 100px;
     display: flex;
@@ -279,7 +269,6 @@ p {
     margin-top: 15px;
     margin-bottom: 7px;
 }
-/* ///////SOCKETS//// */
 .chat {
     margin-top: 10vw;
     display: flex;
@@ -307,7 +296,6 @@ p {
     height: 70px;
     width: 70px;
     object-fit: cover;
-    /* position: relative; */
 }
 .chat-messages h3 {
     display: flex;

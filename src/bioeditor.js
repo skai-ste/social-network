@@ -14,18 +14,14 @@ export default class Bioeditor extends React.Component {
         this.showBio = this.showBio.bind(this);
     }
     handleChange(e) {
-        this.setState(
-            {
-                [e.target.name]: e.target.value
-            },
-            () => console.log("this.state: ", this.state)
-        );
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
     setBio() {
         axios
             .post("/bio", this.state)
             .then(res => {
-                console.log("RESRESRES: ", res);
                 this.props.setBio(res.data.bio);
                 this.setState({
                     bioEditorIsVisible: false

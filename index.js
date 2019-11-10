@@ -19,12 +19,10 @@ const {
     getMessages
 } = require("./utils/db");
 var cookieSession = require("cookie-session");
-// const csurf = require("csurf");
 const s3 = require("./s3");
 const config = require("./config");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" });
-// const io = require("socket.io")(server, { origins: "localhost:8080 myapp.herokuapp.com:*" });
 
 app.use(compression());
 
@@ -54,15 +52,9 @@ const uploader = multer({
 });
 ///////////// FILE UPLOAD BOILERPLATE ///////////
 
-// app.use(
-//     express.urlencoded({
-//         extended: false
-//     })
-// );
-///////?///////
 const cookieSessionMiddleWare = cookieSession({
-    secret: `I'm happy babe.`,
-    maxAge: 1000 * 60 * 60 * 24 * 90 //how long you want to set the cookie
+    secret: `I'm happy.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
 });
 
 app.use(cookieSessionMiddleWare);
@@ -71,16 +63,7 @@ io.use(function(socket, next) {
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
 });
 
-// app.use(csurf());
-
-// app.use(function(req, res, next) {
-//     res.cookie("mytoken", req.csrfToken());
-//     next();
-// });
-
 app.use(express.static("public"));
-// sompresses responses that can be somporessed, like the json files.
-// You should drop it to all other projects too, like petition.
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -92,13 +75,10 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
-///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
 app.post("/register", (req, res) => {
-    console.log("req.body", req.body);
-    console.log("req.body.password", req.body.password);
     hash(req.body.password)
         .then(hashedPsw => {
-            console.log("hashedPsw: ", hashedPsw);
             return addUserData(
                 req.body.first,
                 req.body.last,
@@ -107,7 +87,6 @@ app.post("/register", (req, res) => {
             );
         })
         .then(result => {
-            // console.log("RESULT:", result);
             req.session.userId = result.id;
             res.json({ success: true });
         })
@@ -121,9 +100,7 @@ app.post("/login", (req, res) => {
     getPassword(req.body.email)
         .then(result => {
             var hashedPsw = result.password;
-            console.log("user :", result);
             return compare(req.body.password, hashedPsw).then(match => {
-                console.log("did my pasword match?", match);
                 if (match) {
                     req.session.userId = result.id;
                     res.json({ success: true });
@@ -141,7 +118,6 @@ app.post("/login", (req, res) => {
 app.get("/user", (req, res) => {
     getUserData(req.session.userId)
         .then(result => {
-            // console.log("RESULT: ", result);
             res.json(result);
         })
         .catch(err => {
@@ -159,14 +135,10 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    // req.file - the file that was just uploaded
     const { filename } = req.file;
-    const url = config.s3Url + filename; //if you got here you have url of img and all other information
-    console.log("URL :", url);
-
+    const url = config.s3Url + filename;
     addUserImageData(req.session.userId, url)
         .then(result => {
-            console.log("RESULT :", result);
             res.json(result);
         })
         .catch(err => {
@@ -177,10 +149,8 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 app.post("/bio", (req, res) => {
     const bio = req.body.bio;
-    console.log("POST /bio:", req.body);
     setUserBio(req.session.userId, bio)
         .then(result => {
-            console.log("RESULT :", result);
             res.json(result);
         })
         .catch(err => {
@@ -190,7 +160,6 @@ app.post("/bio", (req, res) => {
 });
 
 app.get("/user/:id/info", (req, res) => {
-    console.log("req.params.id", req.params.id);
     if (req.session.userId == req.params.id) {
         res.json({
             checkId: true
@@ -198,7 +167,6 @@ app.get("/user/:id/info", (req, res) => {
     } else {
         getUserData(req.params.id)
             .then(result => {
-                console.log("RESULT: ", result);
                 res.json(result);
             })
             .catch(err => {
@@ -211,7 +179,6 @@ app.get("/user/:id/info", (req, res) => {
 app.get("/users", (req, res) => {
     getUsers()
         .then(result => {
-            console.log("RESULT: ", result);
             res.json(result);
         })
         .catch(err => {
@@ -221,10 +188,8 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/users/:info", (req, res) => {
-    console.log("req.params", req.params);
     getMatchingActors(req.params.info)
         .then(result => {
-            console.log("RESULT: ", result);
             res.json(result);
         })
         .catch(err => {
@@ -236,9 +201,7 @@ app.get("/users/:info", (req, res) => {
 app.get("/user/:id/friendship", (req, res) => {
     getFriendship(req.session.userId, req.params.id)
         .then(result => {
-            console.log("RESSSSSSULT: ", result);
             if (result.rows.length == 0) {
-                // No friendship, we are not friends (yet)
                 res.json({
                     friendship: "addFriend"
                 });
@@ -265,7 +228,6 @@ app.get("/user/:id/friendship", (req, res) => {
                     }
                 }
             }
-            console.log("RESULT: ", result);
         })
         .catch(err => {
             console.log("ERROR :", err);
@@ -276,7 +238,6 @@ app.get("/user/:id/friendship", (req, res) => {
 app.post("/user/:id/friendship", (req, res) => {
     getFriendship(req.session.userId, req.params.id)
         .then(result => {
-            console.log("POST friendship: ", result.rows);
             if (result.rows.length == 0) {
                 // No friendship, we are not friends (yet)
                 return sendFriendshipRequest(
@@ -284,7 +245,6 @@ app.post("/user/:id/friendship", (req, res) => {
                     req.params.id
                 ).then(result => {
                     // We sent the request, waiting for answer
-                    console.log("send friendship: ", result);
                     res.json({
                         friendship: "cancelFrienship"
                     });
@@ -300,7 +260,6 @@ app.post("/user/:id/friendship", (req, res) => {
                         req.params.id
                     ).then(result => {
                         // We are not friends anymore, but can become again
-                        console.log("remove friendship: ", result);
                         res.json({
                             friendship: "addFriend"
                         });
@@ -314,7 +273,6 @@ app.post("/user/:id/friendship", (req, res) => {
                             req.params.id
                         ).then(result => {
                             // We are not friends, but can become
-                            console.log("remove friendship: ", result);
                             res.json({
                                 friendship: "addFriend"
                             });
@@ -326,7 +284,6 @@ app.post("/user/:id/friendship", (req, res) => {
                             req.params.id
                         ).then(result => {
                             // We are friends, but can stop being friends
-                            console.log("accept friendship: ", result);
                             res.json({
                                 friendship: "endFrienship"
                             });
@@ -344,8 +301,6 @@ app.post("/user/:id/friendship", (req, res) => {
 app.get("/friends-wannabes/", (req, res) => {
     getFriendsList(req.session.userId)
         .then(result => {
-            console.log("RESULT: ", result);
-
             res.json({ friends: result });
         })
         .catch(err => {
@@ -367,22 +322,17 @@ server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
-///////////////////////////////////////
-
 ///////SERVER SIDE SOCKET CODE//////
 io.on("connection", socket => {
-    console.log(`a socket with the id ${socket.id} just connected`);
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
     getMessages()
         .then(data => {
-            console.log("Have messages", data);
             socket.emit("chatMessages", { chatMessages: data.reverse() });
         })
         .catch(err => {
             console.log("Get messages error", err);
-
             socket.disconnect(true);
         });
 
@@ -394,16 +344,12 @@ io.on("connection", socket => {
             msg,
             date.toLocaleDateString() + " " + date.toLocaleTimeString()
         ).then(message => {
-            console.log("Added message:", message);
             getUserData(userId)
                 .then(user => {
-                    console.log("From user:", user);
                     let updatedMessage = message;
                     updatedMessage.firstname = user.firstname;
                     updatedMessage.lastname = user.lastname;
                     updatedMessage.imageurl = user.imageurl;
-                    console.log("Updated message:", user);
-
                     io.sockets.emit("chatMessage", updatedMessage);
                 })
                 .catch(err => {
@@ -412,38 +358,3 @@ io.on("connection", socket => {
         });
     });
 });
-
-// WE NEED TO DO 2 THINGS IN HERE....
-// 1. We need to make a DB query ... to get the last 10 chat messages...
-// db.getLastTenChatMessages().then(data => {
-// here is where we EMIT those chat message....
-// something like ...
-// io.sockets.emit('chatMessages', data.rows)
-// })
-
-// 2. Deal with a new chat message...
-// socket.on('newMessage', (msg) => {
-// 1. get all the info about the user i.e. a db query.
-// 2. add chat message to db.
-// 3. could create a chat message object or use data from above query...
-// 4. io.sockets.emit('new chat message')
-// })
-
-/////////EXAMPL/////////////
-
-// io.sockets.sockets["kjhsudh"].emit("hiYou");
-
-//     socket.emit("hi", {
-//         msg: "hello there"
-//     });
-//
-//     socket.emit("hi", {
-//         msg: "Hello there"
-//     });
-//
-//     socket.on("howAreYou", ({ msg }) => console.log(msg));
-//
-//     socket.on("disconnect", () => {
-//         console.log(`A socket with the id ${socket.id} just disconected`);
-//     });
-// });

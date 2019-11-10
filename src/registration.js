@@ -11,13 +11,10 @@ export default class Registration extends React.Component {
         this.register = this.register.bind(this);
     }
     handleChange(e) {
-        this.setState(
-            {
-                [e.target.name]: e.target.value //this is NOT an array -> [e.target.name] <- this is a variable right now
-            },
-            () => console.log("this.state: ", this.state)
-        );
-    } //this function will work for as much input fields as we want
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
     register(event) {
         event.preventDefault();
         axios
@@ -34,7 +31,6 @@ export default class Registration extends React.Component {
                 this.setState({ error: true });
             });
     }
-    // axios makes request to backend
     render() {
         return (
             <div id="register-container">

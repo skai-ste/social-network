@@ -9,22 +9,10 @@ export function init(store) {
 
         socket.on("chatMessages", msgs => {
             store.dispatch(chatMessages(msgs.chatMessages));
-            console.log("Got all messages:", msgs);
         });
 
         socket.on("chatMessage", msg => {
             store.dispatch(chatMessage(msg));
-            console.log("Got new message:", msg);
         });
     }
 }
-
-// export const init = store => {
-//     if (!socket) {
-//         socket = io.connect();
-//
-//         socket.on("chatMessages", msgs => store.dispatch(chatMessages(msgs)));
-//
-//         socket.on("chatMessage", msg => store.dispatch(chatMessage(msg)));
-//     }
-// };

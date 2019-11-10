@@ -8,7 +8,6 @@ export default function FriendButton(props) {
         axios
             .get("/user/" + props.id + "/friendship")
             .then(res => {
-                console.log("response from users", res);
                 let type = res.data.friendship;
                 setButtonState(type);
             })
@@ -18,7 +17,6 @@ export default function FriendButton(props) {
     }, []);
     const changeFriendship = () => {
         axios.post("/user/" + props.id + "/friendship").then(res => {
-            console.log("response from users", res);
             let type = res.data.friendship;
             setButtonState(type);
         });
@@ -39,13 +37,3 @@ export default function FriendButton(props) {
         </div>
     );
 }
-
-// this.setState({
-//    buttonState: type
-// })
-// setButtonState(type);
-
-//addFriend
-//waiting for reply
-//acceptFriend
-//we are friends and we can remove friendship

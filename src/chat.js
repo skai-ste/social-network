@@ -4,35 +4,21 @@ import { useSelector } from "react-redux";
 
 export function Chat() {
     const chatMessages = useSelector(state => state && state.messages);
-    console.log("here are my chat messages: ", chatMessages);
-
     const keyCheck = e => {
-        console.log("e.key", e.key);
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log(e.target.value);
             socket.emit("chatMessage", e.target.value);
             e.target.value = "";
         }
     };
-
     const elemRef = useRef();
-
     useEffect(
         () => {
-            console.log("chat mounted");
-            console.log("elemRef:", elemRef.current);
-            console.log("scroll top", elemRef.current.scrollTop);
-            console.log("scroll height: ", elemRef.current.scrollHeight);
-            console.log("client height: ", elemRef.current.clientHeight);
             elemRef.current.scrollTop =
                 elemRef.current.scrollHeight - elemRef.current.clientHeight;
-
-            //if user types we want to keep running this user effect, so in array you will put smth from redux
         },
         [chatMessages]
     );
-
     return (
         <div className="chat">
             <h2>chat chat chat ::</h2>

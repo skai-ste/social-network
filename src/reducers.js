@@ -1,8 +1,5 @@
 export default function(state = {}, action) {
     if (action.type == "RECEIVE_FRIENDS") {
-        // state = Object.assign({}, state, {
-        //     users: action.users
-        // });
         state = {
             ...state,
             friends: action.friends
@@ -37,7 +34,5 @@ export default function(state = {}, action) {
             messages: [...state.messages, action.message]
         };
     }
-
-    console.log("reducer.state", JSON.stringify(state));
     return state;
 }

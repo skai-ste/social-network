@@ -9,7 +9,6 @@ export default function FindPeople() {
         axios
             .get("/users")
             .then(res => {
-                console.log("response from users", res);
                 setUsers(res.data);
             })
             .catch(err => {
@@ -18,11 +17,9 @@ export default function FindPeople() {
     }, []);
     useEffect(
         () => {
-            console.log(`"${info}" has been rendered!`);
             axios
                 .get("/users/" + info)
                 .then(res => {
-                    console.log("response from users:id", res);
                     setUsers(res.data);
                 })
                 .catch(err => {
@@ -62,33 +59,3 @@ export default function FindPeople() {
         </div>
     );
 }
-
-// handleChange() {
-//
-//     //2. acces e.target.value and that to the new state as info
-//     //4. you want to update as a new state of info
-// }
-
-//you want to map over an array of getUsers
-//input field
-
-///1///
-// var newFields = {};
-// for (var prop in fields) {
-//     newFields[prop] = fields[prop];
-// }
-// ///2///
-// var newFields = Object.assign({}, fields);
-// ///3///
-// var newFields = {
-//     ...fields,
-//     name: "Jenny Law"
-// };
-//
-// function Login() {
-//     const [fields, setFields] = useState({});
-//     const[error, setError] = useState();
-//     const onChange = ({target}) => setFields({
-//         ...fields,
-//         [target.name]: target.value
-// });

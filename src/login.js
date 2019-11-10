@@ -11,20 +11,15 @@ export default class Login extends React.Component {
         this.login = this.login.bind(this);
     }
     handleChange(e) {
-        this.setState(
-            {
-                [e.target.name]: e.target.value
-            },
-            () => console.log("this.state: ", this.state)
-        );
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
     login(event) {
         event.preventDefault();
         axios
             .post("/login", this.state)
             .then(res => {
-                console.log("RESSSSS: ", res);
-                //res.data.succes :true
                 if (res.data.success) {
                     location.replace("/");
                 } else {

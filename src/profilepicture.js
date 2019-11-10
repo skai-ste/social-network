@@ -22,16 +22,3 @@ export default function Profilepicture({
         </div>
     );
 }
-
-// export default function Profilepicture(props) {
-//     let imageurl = props.imageurl || "/img/default.png";
-//     return (
-//         <div>
-//             <h2>
-//                 I am the profilepicture component. My name is: {props.first}
-//                 {props.last}
-//             </h2>
-//             <img onClick={props.showModal} src={imageurl} />
-//         </div>
-//     );
-// }

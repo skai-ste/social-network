@@ -14,16 +14,13 @@ export default function Friends() {
             state.friends &&
             state.friends.filter(item => item.accepted == false)
     );
-
     useEffect(() => {
-        console.log("showing Friends");
         dispatch(receiveFriends());
     }, []);
 
     if (!friends) {
         return null;
     }
-
     return (
         <div className="friends-list">
             <div>
